@@ -1,0 +1,321 @@
+@import 'tailwindcss' source(none);
+@source './';
+
+.consultancy-logo { width: 76px; height: 38px; object-fit: contain; }
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — the single source for colour, radius and layout.    */
+/* Type and spacing tokens live in :root below.                         */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-bg: #0b0b0c;
+  --color-surface: #141416;
+  --color-fg: #f3f0ea;
+  --color-muted: #a3a3a8;
+  --color-accent: #d7ff45;
+  --color-ink: #0b0b0c;
+  --color-line: rgba(243, 240, 234, 0.12);
+  --color-line-strong: rgba(243, 240, 234, 0.28);
+  --color-todo: #ffb84d;
+
+  --font-heading: 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  /* Type scale: four sizes. Display is used only by the hero headline. */
+  --text-display: clamp(2.5rem, 6.4vw, 7rem); /* ≈40px → 112px */
+  --text-h2: clamp(2.25rem, 4vw, 3.5rem); /* ≈36px → 56px */
+  --text-h3: clamp(1.375rem, 2vw, 1.75rem); /* ≈22px → 28px */
+  --text-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px → 18px */
+  --text-small: 0.875rem;
+  --text-eyebrow: 0.75rem;
+
+  /* Layout */
+  --container: 80rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --section-y: clamp(4rem, 8vw, 7rem);
+  --nav-height: 4rem;
+
+  --focus: var(--color-accent);
+  color-scheme: dark;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                 */
+/* ------------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                            */
+/* ------------------------------------------------------------------ */
+@utility wrap {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@utility text-display {
+  font-size: var(--text-display);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+@utility text-h2 {
+  font-size: var(--text-h2);
+  line-height: 1.05;
+}
+
+@utility text-h3 {
+  font-size: var(--text-h3);
+  line-height: 1.2;
+}
+
+@utility text-body {
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+@utility text-small {
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Entrance animation: fade + 16px rise, once.                          */
+/* RevealController marks below-the-fold [data-reveal] elements as      */
+/* pending and flips them to done when they scroll into view. Without   */
+/* JavaScript (or with reduced motion) nothing is ever hidden.          */
+/* Only opacity and transform are animated.                             */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal-state='pending'] {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* Link underline that draws in from the left (transform only) */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Status dot with an expanding ring (transform + opacity only) */
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.ping {
+  position: relative;
+}
+.ping::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: ping 2.4s var(--ease-out) infinite;
+}
+
+/* Form fields */
+.field {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-fg);
+  transition: border-color 0.2s ease;
+}
+.field::placeholder {
+  color: color-mix(in srgb, var(--color-muted) 75%, transparent);
+}
+.field:hover {
+  border-color: var(--color-fg);
+}
+.field:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--color-fg);
+}
+.field[aria-invalid='true'] {
+  border-color: #d64545;
+}
+select.field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+select.field option {
+  background: var(--color-surface);
+  color: var(--color-fg);
+}
+
+/* Visually hidden helper for honeypots */
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Light (cream) surface — swaps the palette for a section.             */
+/* Lime is never used as text on cream; focus rings switch to ink.      */
+/* ------------------------------------------------------------------ */
+.theme-light {
+  --color-bg: #f3f0ea;
+  --color-surface: #ffffff;
+  --color-fg: #0b0b0c;
+  --color-muted: #55524b;
+  --color-line: rgba(11, 11, 12, 0.14);
+  --color-line-strong: rgba(11, 11, 12, 0.4);
+  --color-todo: #8a5300;
+  --focus: #0b0b0c;
+  color-scheme: light;
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+.theme-light ::selection {
+  background: #0b0b0c;
+  color: #d7ff45;
+}
+.theme-light select.field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2355524b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}

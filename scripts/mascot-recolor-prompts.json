@@ -1,0 +1,16 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "Match Team DADA mascot clothing and branding to the site's black, white, and orange palette.",
+  "edits": [
+    {
+      "asset": "poster",
+      "source": "public/assets/mascot/dada-mascot-poster.jpg",
+      "prompt": "Use case: precise-object-edit. Edit target: the supplied Team DADA portrait poster. Recolor only to match the website's black-and-orange theme. Replace all purple, violet, and blue accents on the mascot's hoodie logo, sleeve stars, hood lining, backpack straps, cargo tabs, watch detail, and sneaker panels with vivid orange #FF6A00 and #FF8A24. Keep the hoodie and sneakers white with black panels, and the cargo pants black. Recolor the large DADA logo and its swooshes to orange with white highlights, preserving its exact shape and lettering. Change purple background, grid, glow, icons, and captions to near-black #080808/#111111 with restrained orange accents and light gray text. Preserve the exact same mascot identity, face, hair, skin tone, beard, glasses, expression, crossed-arm pose, anatomy, clothing design, textures, camera, full-body framing, scale, and all existing text and layout. This is a color edit, not a redesign. Maintain the original 1024x1536 portrait composition and the character's exact silhouette and placement. Do not add, remove, move, or crop any elements. Output one edited poster."
+    },
+    {
+      "asset": "sheet",
+      "source": "public/assets/mascot/dada-character-sheet.jpg",
+      "prompt": "Use case: precise-object-edit. Edit target: the supplied official Team DADA character sheet. Recolor it consistently to the website's BLACK + ORANGE palette: #080808 and #111111 backgrounds, orange #FF6A00 and #FF8A24 accents, white and light gray text. In EVERY pose, turnaround and expression, change all purple/violet/blue apparel details, hoodie DADA logos, sleeve star emblems, hood linings, backpack straps, cargo tabs, watch details, and shoe panels to orange. Keep white hoodie and shoe areas white, black clothing areas black, and skin/hair/glasses unchanged. Recolor the laptop branding, lower-right DADA logo, swooshes, dividers, typography, icons, stage grid, and background glow from purple to orange and near-black. Preserve exactly the same character identity, all original poses and expressions, anatomy, facial details, clothing design, panel layout, captions and spelling, original logo shape, framing and composition. No added or removed content, no redesign, no rearranging. Maintain original 1536x1024 landscape composition. Output one edited complete character sheet."
+    }
+  ]
+}

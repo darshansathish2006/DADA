@@ -1,0 +1,36 @@
+{
+  "mode": "Built-in image generation and editing",
+  "palette": {
+    "blue": "#3984FF",
+    "cyan": "#69E8FF"
+  },
+  "poses": [
+    {
+      "pose": "pointing",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the clothing/branding accent colors of this exact existing transparent DADA mascot cutout. Replace every lime/green/yellow-green chest DADA logo, cargo tab, strap accent, shoe panel, eyelet, and laptop logo (if present) with electric royal blue #3984FF. Replace every pink/magenta sleeve star, hood lining, drawstring, and trim with icy cyan #69E8FF. All branding should now be BLUE or CYAN only, with white and black clothes. NO PINK, NO GREEN. Preserve the EXACT character face, skin color, hair, glasses, expression, body, pose, objects, silhouette, size, camera, composition, clothing geometry and all textures. This is a precise color replacement, not a redraw. Preserve the existing transparent alpha background and clean cutout edges, including gaps inside the silhouette. Only the isolated character; no scene, no backdrop, no stage, no floor, no cast shadow, no glow outside its edges, no background colors. Keep the full body entirely within the original 1024x1536 composition. Return a genuinely transparent PNG."
+    },
+    {
+      "pose": "thinking",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the clothing/branding accent colors of this exact existing transparent DADA mascot cutout. Replace every lime/green/yellow-green chest DADA logo, cargo tab, strap accent, shoe panel, eyelet, and laptop logo (if present) with electric royal blue #3984FF. Replace every pink/magenta sleeve star, hood lining, drawstring, and trim with icy cyan #69E8FF. All branding should now be BLUE or CYAN only, with white and black clothes. NO PINK, NO GREEN. Preserve the EXACT character face, skin color, hair, glasses, expression, body, pose, objects, silhouette, size, camera, composition, clothing geometry and all textures. This is a precise color replacement, not a redraw. Preserve the existing transparent alpha background and clean cutout edges, including gaps inside the silhouette. Only the isolated character; no scene, no backdrop, no stage, no floor, no cast shadow, no glow outside its edges, no background colors. Keep the full body entirely within the original 1024x1536 composition. Return a genuinely transparent PNG."
+    },
+    {
+      "pose": "laptop",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the clothing/branding accent colors of this exact existing transparent DADA mascot cutout. Replace every lime/green/yellow-green chest DADA logo, cargo tab, strap accent, shoe panel, eyelet, and laptop logo (if present) with electric royal blue #3984FF. Replace every pink/magenta sleeve star, hood lining, drawstring, and trim with icy cyan #69E8FF. All branding should now be BLUE or CYAN only, with white and black clothes. NO PINK, NO GREEN. Preserve the EXACT character face, skin color, hair, glasses, expression, body, pose, objects, silhouette, size, camera, composition, clothing geometry and all textures. This is a precise color replacement, not a redraw. Preserve the existing transparent alpha background and clean cutout edges, including gaps inside the silhouette. Only the isolated character; no scene, no backdrop, no stage, no floor, no cast shadow, no glow outside its edges, no background colors. Keep the full body entirely within the original 1024x1536 composition. Return a genuinely transparent PNG."
+    },
+    {
+      "pose": "celebrating",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the clothing/branding accent colors of this exact existing transparent DADA mascot cutout. Replace every lime/green/yellow-green chest DADA logo, cargo tab, strap accent, shoe panel, eyelet, and laptop logo (if present) with electric royal blue #3984FF. Replace every pink/magenta sleeve star, hood lining, drawstring, and trim with icy cyan #69E8FF. All branding should now be BLUE or CYAN only, with white and black clothes. NO PINK, NO GREEN. Preserve the EXACT character face, skin color, hair, glasses, expression, body, pose, objects, silhouette, size, camera, composition, clothing geometry and all textures. This is a precise color replacement, not a redraw. Preserve the existing transparent alpha background and clean cutout edges, including gaps inside the silhouette. Only the isolated character; no scene, no backdrop, no stage, no floor, no cast shadow, no glow outside its edges, no background colors. Keep the full body entirely within the original 1024x1536 composition. Return a genuinely transparent PNG."
+    },
+    {
+      "pose": "waving",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the clothing/branding accent colors of this exact existing transparent DADA mascot cutout. Replace every lime/green/yellow-green chest DADA logo, cargo tab, strap accent, shoe panel, eyelet, and laptop logo (if present) with electric royal blue #3984FF. Replace every pink/magenta sleeve star, hood lining, drawstring, and trim with icy cyan #69E8FF. All branding should now be BLUE or CYAN only, with white and black clothes. NO PINK, NO GREEN. Preserve the EXACT character face, skin color, hair, glasses, expression, body, pose, objects, silhouette, size, camera, composition, clothing geometry and all textures. This is a precise color replacement, not a redraw. Preserve the existing transparent alpha background and clean cutout edges, including gaps inside the silhouette. Only the isolated character; no scene, no backdrop, no stage, no floor, no cast shadow, no glow outside its edges, no background colors. Keep the full body entirely within the original 1024x1536 composition. Return a genuinely transparent PNG."
+    }
+  ],
+  "assets": [
+    "public/assets/mascot/dada-neon-pointing.png",
+    "public/assets/mascot/dada-neon-thinking.png",
+    "public/assets/mascot/dada-neon-laptop.png",
+    "public/assets/mascot/dada-neon-celebrating.png",
+    "public/assets/mascot/dada-neon-waving.png"
+  ]
+}
