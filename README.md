@@ -21,6 +21,12 @@ npm test
 
 The production files are generated in `dist/`. Deploy that directory to a static host. No backend or external service is required to browse the site.
 
+### GitHub Pages
+
+The repository uses `.github/workflows/deploy-pages.yml` to test, build, and deploy `dist/` on pushes to `master`. Pages must use **GitHub Actions** as its source, rather than publishing the source branch directly. The public site is `https://darshansathish2006.github.io/DADA/`.
+
+The workflow builds with `npm run build -- --base /DADA/`. Images, navigation, consultancy routes, and case studies resolve through Vite's deployment base. For a root-domain host or ordinary local development, the default base remains `/`. To preview the Pages build locally, use `npm run preview -- --base /DADA/` and open `/DADA/` on its printed origin. If the repository name or hosting path changes, update the workflow's build base.
+
 ## Editing
 
 - `src/content.js`: all replaceable content, mascot paths, four core-member entries, contributions, achievements, socials, and independent service destinations.

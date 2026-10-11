@@ -3,6 +3,7 @@ import { Link } from '@/lib/navigation';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { getAdjacentProjects, getProject } from '@/data/projects';
 import { siteConfig } from '@/data/site-config';
+import { sitePath } from '../site-paths';
 import { reveal } from '@/lib/reveal';
 import BrowserFrame from '@/components/ui/BrowserFrame';
 import Button from '@/components/ui/Button';
@@ -166,10 +167,10 @@ export default function CaseStudyPage({ slug }: { slug: string }) {
             '@type': 'CreativeWork',
             name: project.title,
             description: project.summary,
-            url: `${window.location.origin}/consultancy/work/${project.slug}/`,
-            image: `${window.location.origin}/consultancy${project.cover.src}`,
+            url: `${window.location.origin}${sitePath(`/consultancy/work/${project.slug}/`)}`,
+            image: `${window.location.origin}${sitePath(`/consultancy${project.cover.src}`)}`,
             ...(project.url ? { sameAs: project.url } : {}),
-            creator: { '@type': 'Organization', name: siteConfig.name, url: `${window.location.origin}/consultancy/` },
+            creator: { '@type': 'Organization', name: siteConfig.name, url: `${window.location.origin}${sitePath('/consultancy/')}` },
             ...(project.workedOnBy && project.workedOnBy.length > 0
               ? { contributor: project.workedOnBy.map((name) => ({ '@type': 'Person', name })) }
               : {}),

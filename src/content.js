@@ -1,3 +1,4 @@
+import { sitePath } from './site-paths';
 import { technicalInitiatives } from './portfolio';
 
 // Official team social URLs can be added when available.
@@ -6,7 +7,7 @@ export const siteConfig = {
   consultancyUrl: import.meta.env.VITE_CONSULTANCY_URL || '/consultancy/',
   workshopsUrl: import.meta.env.VITE_WORKSHOPS_URL || '',
   enquiryEndpoint: import.meta.env.VITE_ENQUIRY_ENDPOINT || '',
-  mascot: '/assets/mascot/dada-neon-pointing.png',
+  mascot: sitePath('/assets/mascot/dada-neon-pointing.png'),
   // Add verified URLs here. Empty entries are displayed as unavailable, never fake links.
   socials: [
     { label: 'GitHub', url: '' },
@@ -17,11 +18,11 @@ export const siteConfig = {
 
 // Individual transparent cutouts. Source posters are archived in public/assets/mascot.
 export const mascotPoses = {
-  pointing: { src: '/assets/mascot/dada-neon-pointing.png', label: 'Ready to build', alt: 'DADA mascot pointing confidently toward the viewer' },
-  thinking: { src: '/assets/mascot/dada-neon-thinking.png', label: 'Always curious', alt: 'DADA mascot thinking with a hand on his chin' },
-  celebrating: { src: '/assets/mascot/dada-neon-celebrating.png', label: 'Big build energy', alt: 'DADA mascot jumping in celebration with both hands raised' },
-  laptop: { src: '/assets/mascot/dada-neon-laptop.png', label: 'Learning by doing', alt: 'DADA mascot working on an open laptop' },
-  waving: { src: '/assets/mascot/dada-neon-waving.png', label: 'Say hello', alt: 'DADA mascot smiling and waving hello' },
+  pointing: { src: sitePath('/assets/mascot/dada-neon-pointing.png'), label: 'Ready to build', alt: 'DADA mascot pointing confidently toward the viewer' },
+  thinking: { src: sitePath('/assets/mascot/dada-neon-thinking.png'), label: 'Always curious', alt: 'DADA mascot thinking with a hand on his chin' },
+  celebrating: { src: sitePath('/assets/mascot/dada-neon-celebrating.png'), label: 'Big build energy', alt: 'DADA mascot jumping in celebration with both hands raised' },
+  laptop: { src: sitePath('/assets/mascot/dada-neon-laptop.png'), label: 'Learning by doing', alt: 'DADA mascot working on an open laptop' },
+  waving: { src: sitePath('/assets/mascot/dada-neon-waving.png'), label: 'Say hello', alt: 'DADA mascot smiling and waving hello' },
 };
 
 export const navigation = [
@@ -62,7 +63,7 @@ export const members = [
   {
     id: 1, name: 'Darshan C S', role: 'Technical Expert, Co-Lead Developer',
     introduction: 'Full stack engineering and AI development.',
-    image: '/assets/team/darshan-c-s.jpg',
+    image: sitePath('/assets/team/darshan-c-s.jpg'),
     github: 'https://github.com/darshansathish2006',
     linkedin: 'https://www.linkedin.com/in/darshan-c-s-77ab43331',
     portfolio: 'https://darshancs.vercel.app',
@@ -70,7 +71,7 @@ export const members = [
   {
     id: 2, name: 'Andryan Durai Jebin', role: 'Co-Lead Developer',
     introduction: 'Backend development and AI engineering.',
-    image: '/assets/team/andryan-durai-jebin.jpg',
+    image: sitePath('/assets/team/andryan-durai-jebin.jpg'),
     github: 'https://github.com/Andryandurai',
     linkedin: 'https://www.linkedin.com/in/andryan-durai-bb2b40331',
     portfolio: 'https://andryan-portfolio.vercel.app/',
@@ -78,7 +79,7 @@ export const members = [
   {
     id: 3, name: 'Dinesh G', role: 'Data Analyst, UI/UX Designer',
     introduction: 'Works across data analysis and interface design.',
-    image: '/assets/team/dinesh-g.jpg',
+    image: sitePath('/assets/team/dinesh-g.jpg'),
     github: 'https://github.com/Dinesh6618/',
     linkedin: 'https://www.linkedin.com/in/dinesh6618/',
     portfolio: '',
@@ -86,7 +87,7 @@ export const members = [
   {
     id: 4, name: 'Akshaya P', role: 'Frontend Developer, Data Analyst',
     introduction: 'Builds frontend interfaces and works with data.',
-    image: '/assets/team/akshaya-p.jpg',
+    image: sitePath('/assets/team/akshaya-p.jpg'),
     github: 'https://github.com/Akshaya0206-tech',
     linkedin: 'https://www.linkedin.com/in/akshaya-p-18693b331/',
     portfolio: '',

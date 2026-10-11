@@ -1,4 +1,5 @@
 import { Link } from '@/lib/navigation';
+import { sitePath } from '../../../site-paths';
 import { ArrowUp } from 'lucide-react';
 import { hasEmail, phoneLinks, siteConfig, socialLinks, whatsappLinks } from '@/data/site-config';
 import Todo from '@/components/ui/Todo';
@@ -17,7 +18,7 @@ export default function Footer() {
           </Link>
           <p className="mt-3 max-w-sm text-small text-muted">{siteConfig.description}</p>
           <p className="mt-3 text-small text-muted">{siteConfig.location}</p>
-          <a href="/" className="mt-4 inline-flex text-small font-semibold text-accent hover:underline">← Back to Team DADA</a>
+          <a href={sitePath('/')} className="mt-4 inline-flex text-small font-semibold text-accent hover:underline">← Back to Team DADA</a>
         </div>
 
         <nav aria-label="Footer" className="md:col-span-3">

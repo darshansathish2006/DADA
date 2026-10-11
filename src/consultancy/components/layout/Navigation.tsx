@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/lib/navigation';
+import { sitePath } from '../../../site-paths';
 import { Menu, X } from 'lucide-react';
 import { bookingHref, siteConfig } from '@/data/site-config';
 import Button from '@/components/ui/Button';
@@ -30,12 +31,12 @@ export default function Navigation() {
           aria-label={`${siteConfig.name} — home`}
           onClick={() => setOpen(false)}
         >
-          <img src="/assets/branding/dada-logo-blue.png" alt="DADA" className="consultancy-logo" />
+          <img src={sitePath('/assets/branding/dada-logo-blue.png')} alt="DADA" className="consultancy-logo" />
           <span className="text-small normal-case">Consultancy</span>
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
-          <li><a href="/" className="text-small text-muted hover:text-fg">← Team DADA</a></li>
+          <li><a href={sitePath('/')} className="text-small text-muted hover:text-fg">← Team DADA</a></li>
           {siteConfig.nav.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className="text-small font-medium text-muted transition-colors hover:text-fg">
@@ -66,7 +67,7 @@ export default function Navigation() {
       {open ? (
         <div id="mobile-menu" className="border-t border-line bg-bg md:hidden">
           <ul className="wrap flex flex-col py-2">
-            <li className="border-b border-line"><a href="/" className="block py-4 font-heading text-h3 font-bold">← Team DADA</a></li>
+            <li className="border-b border-line"><a href={sitePath('/')} className="block py-4 font-heading text-h3 font-bold">← Team DADA</a></li>
             {siteConfig.nav.map((item) => (
               <li key={item.href} className="border-b border-line last:border-b-0">
                 <Link
