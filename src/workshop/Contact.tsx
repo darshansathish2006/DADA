@@ -3,6 +3,7 @@ import { ArrowUpRight, Check, Copy, Download, Mail, MessageCircle, Phone } from 
 import Doodle from './Doodle';
 import { activities, asset, contactEmail, contactNumbers, workshops } from './data';
 import { composeEnquiry, deliverEnquiry, emptyEnquiry, localDate, validateEnquiry, type EnquiryErrors, type EnquiryValues } from './enquiry';
+import { workshopEnquiryEndpoint, whatsappHref } from '../contact-details';
 
 interface Props { topics: string[]; setTopics: (ids: string[]) => void; selectedActivities: string[]; setActivities: (ids: string[]) => void }
 export default function Contact({ topics, setTopics, selectedActivities, setActivities }: Props) {
@@ -12,12 +13,18 @@ export default function Contact({ topics, setTopics, selectedActivities, setActi
   const [status, setStatus] = useState('');
   const [busy, setBusy] = useState(false);
   const [topicsOpen, setTopicsOpen] = useState(false);
+  const [website, setWebsite] = useState('');
   const form = useRef<HTMLFormElement>(null);
   const output = useRef<HTMLDivElement>(null);
   const inFlight = useRef(false);
+  const resettingSelections = useRef(false);
   const request = useRef({ payload: '', id: '' });
-  const endpoint = import.meta.env.VITE_WORKSHOP_ENQUIRY_ENDPOINT || '';
-  useEffect(() => { setDraft(''); setStatus(''); setErrors(old => ({ ...old, topics: undefined })); }, [topics, selectedActivities]);
+  const endpoint = workshopEnquiryEndpoint;
+  useEffect(() => {
+    setDraft(''); setErrors(old => ({ ...old, topics: undefined }));
+    if (resettingSelections.current) resettingSelections.current = false;
+    else setStatus('');
+  }, [topics, selectedActivities]);
   function update<K extends keyof EnquiryValues>(key: K, value: EnquiryValues[K]) {
     setValues(old => ({ ...old, [key]: value })); setErrors(old => ({ ...old, [key]: undefined })); setDraft(''); setStatus('');
   }
@@ -35,16 +42,16 @@ export default function Contact({ topics, setTopics, selectedActivities, setActi
     const text = composeEnquiry(values, topics, selectedActivities);
     if (!endpoint) { setDraft(text); requestAnimationFrame(() => output.current?.focus()); return; }
     inFlight.current = true; setBusy(true);
-    const payload = { ...values, topics: workshops.filter(w => topics.includes(w.id)).map(w => w.title), activities: activities.filter(a => selectedActivities.includes(a.id)).map(a => a.title) };
+    const payload = { ...values, website, topics: workshops.filter(w => topics.includes(w.id)).map(w => w.title), activities: activities.filter(a => selectedActivities.includes(a.id)).map(a => a.title) };
     const serialised = JSON.stringify(payload);
     if (request.current.payload !== serialised) request.current = { payload: serialised, id: crypto.randomUUID() };
     try {
-      const success = await deliverEnquiry(endpoint, payload, request.current.id);
-      if (success) {
-        setValues(emptyEnquiry); setTopics([]); setActivities([]); setDraft(''); request.current = { payload: '', id: '' };
-        // Let selection effects settle before announcing the server-confirmed result.
-        setTimeout(() => setStatus('Your enquiry has been received. This is not a booking confirmation; the team will discuss the details with you.'), 0);
-      } else { setDraft(text); setStatus('Delivery could not be confirmed. Your details are still here. You can send the email draft below.'); }
+      const result = await deliverEnquiry(endpoint, payload, request.current.id);
+      if (result.ok) {
+        resettingSelections.current = true;
+        setValues(emptyEnquiry); setTopics([]); setActivities([]); setDraft(''); setWebsite(''); request.current = { payload: '', id: '' };
+        setStatus('Your workshop enquiry has been emailed to Team DADA. This is not a booking confirmation; the team will discuss the details with you.');
+      } else { setDraft(text); setStatus(result.message); }
     } finally { setBusy(false); inFlight.current = false; }
   }
   async function copy() {
@@ -69,7 +76,7 @@ export default function Contact({ topics, setTopics, selectedActivities, setActi
               <span className="contact-phone-number">{phone.display}</span>
               <div className="contact-phone-actions">
                 <a href={`tel:${phone.number}`} aria-label={`Call ${phone.display}`}><Phone size={17} aria-hidden="true" />Call</a>
-                <a href={`https://wa.me/${phone.number.slice(1)}?text=${encodeURIComponent('Hi Team DADA! I would like to discuss a workshop.')}`} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${phone.display} (opens in a new tab)`}><MessageCircle size={17} aria-hidden="true" />WhatsApp</a>
+                <a href={whatsappHref(phone.number, 'Hi Team DADA! I would like to discuss a workshop.')} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${phone.display} (opens in a new tab)`}><MessageCircle size={17} aria-hidden="true" />WhatsApp</a>
               </div>
             </li>)}
           </ul>
@@ -80,6 +87,7 @@ export default function Contact({ topics, setTopics, selectedActivities, setActi
         <div className="form-heading mono"><span>YOUR NEXT CHAPTER STARTS HERE</span><Doodle kind="design" size={28} /></div>
         <p className="form-note">Fields marked <span aria-hidden="true">*</span> are required.</p>
         <fieldset disabled={busy} className="form-fields"><legend className="sr-only">Institutional workshop enquiry</legend>
+          <div className="enquiry-trap" aria-hidden="true"><label htmlFor="enquiry-website">Leave this field empty</label><input id="enquiry-website" name="website" value={website} onChange={e => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" /></div>
           <div className="form-row"><div className="field"><label htmlFor="enquiry-name">Your name *</label><input {...props('name')} required autoComplete="name" maxLength={120} placeholder="Your full name" />{error('name')}</div><div className="field"><label htmlFor="enquiry-email">Email address *</label><input {...props('email')} required autoComplete="email" type="email" maxLength={254} placeholder="you@institution.edu" />{error('email')}</div></div>
           <div className="field"><label htmlFor="enquiry-institution">School or college name *</label><input {...props('institution')} required autoComplete="organization" maxLength={180} placeholder="Your institution" />{error('institution')}</div>
           <div className="form-row"><div className="field"><label htmlFor="enquiry-institutionType">Institution type *</label><select {...props('institutionType')} required><option value="">Select type</option><option>School</option><option>College</option><option>Other</option></select>{error('institutionType')}</div><div className="field"><label htmlFor="enquiry-audience">Student audience *</label><select {...props('audience')} required><option value="">Select audience</option><option>Classes 8–10</option><option>Classes 11–12</option><option>College</option><option>Mixed audience</option></select>{error('audience')}</div></div>
@@ -88,11 +96,11 @@ export default function Contact({ topics, setTopics, selectedActivities, setActi
           <div className="form-row"><div className="field"><label htmlFor="enquiry-date">Preferred date <small>Optional</small></label><input {...props('date')} type="date" min={localDate()} />{error('date')}</div><div className="field"><label htmlFor="enquiry-participants">Participants <small>Optional</small></label><input {...props('participants')} type="number" min="1" max="100000" step="1" placeholder="Estimated group size" />{error('participants')}</div></div>
           <div className="field"><label htmlFor="enquiry-message">Anything else? <small>Optional</small></label><textarea {...props('message')} rows={4} maxLength={3000} placeholder="Learning goals, facilities, accessibility needs, or questions…" /></div>
           <label className="consent"><input id="enquiry-consent" type="checkbox" checked={values.consent} onChange={e => update('consent', e.target.checked)} required aria-invalid={!!errors.consent} aria-describedby={errors.consent ? 'error-consent' : undefined} />I agree to be contacted by TEAM DADA about this enquiry. *</label>{error('consent')}
-          <p className="delivery-note">{endpoint ? 'Your details will be shared with TEAM DADA to respond to this enquiry.' : 'This form prepares an email draft. Your details stay in this page until you open your email app, copy, or download the draft. You send the email yourself.'}</p>
+          <p className="delivery-note">{endpoint ? `Your enquiry is emailed to ${contactEmail}. We’ll use your details to plan the workshop with you.` : 'This form prepares an email draft. Your details stay in this page until you open your email app, copy, or download the draft. You send the email yourself.'}</p>
           <button className="button form-submit" type="submit" disabled={busy}>{busy ? 'Sending enquiry…' : endpoint ? 'Send enquiry' : 'Prepare email enquiry'}<ArrowUpRight size={20} /></button>
         </fieldset>
         {status && <p className="form-status" role="status">{status}</p>}
-        {draft && <div ref={output} tabIndex={-1} className="draft-panel" aria-label="Prepared email enquiry"><h3><Check size={20} />Your enquiry is ready to send.</h3><p>No message has been sent yet. Open the draft in your email app and send it to <strong>{contactEmail}</strong>. If it does not open, copy or download the draft.</p><div className="draft-actions"><a className="button" href={`mailto:${contactEmail}?subject=${encodeURIComponent(`Workshop enquiry — ${values.institution.trim()}`)}&body=${encodeURIComponent(draft)}`}>Open in email app<Mail size={18} /></a><button type="button" className="subtle-button" onClick={copy}><Copy size={16} />Copy draft</button><button type="button" className="subtle-button" onClick={download}><Download size={16} />Download</button></div><details><summary>Read your email draft</summary><pre>{draft}</pre></details></div>}
+        {draft && <div ref={output} tabIndex={-1} className="draft-panel" aria-label="Prepared email enquiry"><h3><Check size={20} />Your email draft</h3><p>{endpoint ? 'Automatic delivery could not be confirmed.' : 'No message has been sent yet.'} Open the draft in your email app and send it to <strong>{contactEmail}</strong>. If it does not open, copy or download the draft.</p><div className="draft-actions"><a className="button" href={`mailto:${contactEmail}?subject=${encodeURIComponent(`Workshop enquiry — ${values.institution.trim()}`)}&body=${encodeURIComponent(draft)}`}>Open in email app<Mail size={18} /></a><button type="button" className="subtle-button" onClick={copy}><Copy size={16} />Copy draft</button><button type="button" className="subtle-button" onClick={download}><Download size={16} />Download</button></div><details><summary>Read your email draft</summary><pre>{draft}</pre></details></div>}
       </form></div>
     </div>
   </section>;

@@ -60,19 +60,25 @@ Barlow Condensed, DM Sans, and Space Mono are bundled locally in `public/assets/
 
 Consultancy opens the bundled `/consultancy/` portfolio, updated from `Andryandurai/DADA-Portfolio` commit `6f18e5b`. The latest hero, Plan/Design/Build services, five-project approach, logo, team, and client work are adapted to the existing Vite build. Edit its content in `src/consultancy/data/`, components in `src/consultancy/components/`, and styling in `src/consultancy/styles.css`. Its images and public resumes live in `public/consultancy/`.
 
-Consultancy retains the latest source's team roster and project credits; credit links jump to the corresponding team member. Contact validates and prepares an enquiry locally, with a prefilled email link and copy action. Both the contact section and footer list the supplied numbers under **Call / WhatsApp**, with working call and chat links. It does not call the source project's Next.js API.
+Consultancy retains the latest source's team roster and project credits; credit links jump to the corresponding team member. Contact validates and emails enquiries through the shared endpoint, with a prefilled email link and copy action if delivery is unavailable. Both the contact section and footer list the supplied numbers under **Call / WhatsApp**, with working call and chat links. It does not call the source project's Next.js API.
 
 Workshops opens `/workshop/`, imported from `Andryandurai/DADA-Workshop` commit `15f7930`. It includes the searchable workshop catalogue, school/college pathways, activities, detail dialogs, theme switch, team, FAQ, and enquiry form. Edit `src/workshop/`. Existing mascot, branding, portraits, and fonts are shared; the workshop's Bricolage Grotesque font and license are bundled. Workshop contacts list **+91 73585 28466** and **+91 73059 66008** under **Call / WhatsApp**. **+91 99448 52361** is removed from workshop only.
 
 The main site, consultancy, and workshop have separate HTML and CSS entries. Vite builds all three with one `npm run build`; the `consultancy-pages` plugin also writes `/consultancy/work/<slug>/index.html` for each case study, supporting direct links and refreshes on a static host. There is no runtime dependency on the source repositories or a second server. Main-site return links use the current deployment base. `scripts/service-sources.json` records exact imported commits and integration adaptations; upstream Git history and deployment settings are not copied into this repository.
 
-Set `VITE_CONSULTANCY_URL` or `VITE_WORKSHOPS_URL` only to override their bundled destinations. The workshop form prepares an email draft by default. Its optional `VITE_WORKSHOP_ENQUIRY_ENDPOINT` is separate from the main form's endpoint because the workshop payload includes institution, audience, topics, activities, date, participants, and consent. It sends JSON with an `Idempotency-Key` and only confirms delivery for an HTTP success containing `{ "success": true }`. Rebuild after changing environment variables.
+Set `VITE_CONSULTANCY_URL` or `VITE_WORKSHOPS_URL` only to override their bundled destinations. Main, consultancy and workshop enquiries share `VITE_ENQUIRY_ENDPOINT`; `VITE_WORKSHOP_ENQUIRY_ENDPOINT` is an optional workshop-only override. Each request includes its source and the source-specific form fields. All forms preserve the details and offer a manual email draft if delivery is unavailable. Rebuild after changing environment variables.
 
 ## Email delivery
 
-Email is **not configured**. The site states this clearly and does not claim to send messages. Visitors can validate, prepare, and copy an enquiry. No messages are stored in the browser or sent elsewhere in this mode.
+The email backend in `apps-script/Code.gs` is deployed and authorized in **teamdadaoffl@gmail.com**. Its public Google `/exec` URL is configured in `src/contact-details.js`, so all three forms work with ordinary local and GitHub Pages builds. The website stays on GitHub Pages. See [the setup and maintenance guide](apps-script/README.md) to recreate the script or change deployments. `VITE_ENQUIRY_ENDPOINT` optionally overrides the default: use a GitHub Actions repository variable for Pages, or `.env.local` for local development.
 
-Set `VITE_ENQUIRY_ENDPOINT` to the URL of your real backend (for example, a serverless function), then rebuild. This is a public URL; never put provider credentials in a `VITE_` variable. The form sends:
+The script sends **from the team Gmail account to the same account**, with the customer as Reply-To. Subjects identify Main site, Workshop or Consultancy. Bodies include all submitted enquiry fields, the enquiry ID and the time. Recipient/sender are fixed on the server. Validation, a honeypot, per-customer/global limits and 24-hour retry deduplication run on Google's servers. Only request hashes, timestamps and state are kept in Script Properties; enquiry text is not stored there.
+
+`src/contact-details.js` centralizes the inbox, contact numbers and endpoint settings. Every enquiry section includes email and **Call / WhatsApp** links; the workshop's excluded number stays excluded. `src/enquiry-delivery.js` handles acknowledged submissions from all three forms. It never treats an unreadable response or network failure as a sent email.
+
+Enquiries are sent automatically through the configured script. If sending fails or cannot be confirmed, visitors keep their entered details and can use the visible contact links and email-draft fallbacks. No passwords or mail credentials are placed in the client bundle.
+
+The Apps Script transport uses a CORS-simple `text/plain` POST containing JSON, with `source` and `requestId` in the body, and follows Google's response redirect. A custom HTTPS backend can also be used; it receives a JSON POST with the same fields plus an `Idempotency-Key` header:
 
 ```http
 POST <VITE_ENQUIRY_ENDPOINT>
@@ -83,6 +89,8 @@ Idempotency-Key: <unique ID retained across retries of the same enquiry>
 ```json
 {
   "name": "A real visitor",
+  "source": "main",
+  "requestId": "a-unique-enquiry-id",
   "email": "visitor@example.com",
   "organization": "Optional institution",
   "enquiryType": "Project Collaboration",
@@ -90,16 +98,16 @@ Idempotency-Key: <unique ID retained across retries of the same enquiry>
 }
 ```
 
-Your backend must:
+If replacing the supplied Google backend, the replacement must:
 
 1. Validate all fields again. Enforce limits matching the UI (name 120, email 254, organization 180, message 5000 characters), and validate the enquiry type.
 2. Configure a team inbox, verified sender, and an email provider on the server. Typical **server-only** variables: `ENQUIRY_TO_EMAIL`, `ENQUIRY_FROM_EMAIL`, and your selected provider’s API key. Their exact names depend on the backend you choose.
 3. Use a verified sender and the visitor’s email as `Reply-To`; never accept a sender or destination email from the client.
 4. Rate limit requests and implement idempotency using the request header, preventing duplicate email on retries.
 5. If the API is on another origin, allow only your deployed site origin in CORS, including `Content-Type` and `Idempotency-Key` headers and the `OPTIONS` preflight.
-6. Respond with a successful HTTP status and **`{ "success": true }` only after the email provider accepts the message**. Failed or unconfirmed responses keep the form data and display an error. The frontend aborts unconfirmed requests after 15 seconds and never assumes delivery.
+6. Respond with a successful HTTP status and **`{ "success": true }` only after the email provider accepts the message**. Failed or unconfirmed responses keep the form data and display an error. The frontend aborts unconfirmed requests after 30 seconds and never assumes delivery.
 
-This project supplies the submission interface, not an unconfigured mail server. Add the chosen provider’s implementation to your hosting backend once the team inbox and provider are available.
+Apps Script uses the inbox owner's Google authorization. Local unit tests simulate Google services; when changing deployments, verify live sending from all three forms and check the team inbox for the test messages.
 
 ## Publication metadata
 
@@ -107,4 +115,4 @@ The document includes title, description, theme, favicon, and Open Graph text. A
 
 ## Checks
 
-`npm test` checks required-field validation, malformed emails, honest unconfigured behavior, acknowledgement requirements, trimmed payloads, duplicate-request keys, network failures, and timeouts. `npm run build` verifies the production bundle. Browser QA covers responsive layouts, navigation, dialogs, enquiry validation, and endpoint outcomes.
+`npm test` checks required-field validation, malformed emails, honest unconfigured behavior, acknowledgement requirements, trimmed payloads, duplicate-request keys, network failures, and timeouts. It also exercises `apps-script/Code.gs` with simulated Google services: all three email formats, fixed recipient and Reply-To, invalid requests, quota/account failures, rate limits, deduplication and interrupted sends. `npm run build` verifies the production bundle. Browser QA covers responsive layouts, navigation, dialogs, enquiry validation, and endpoint outcomes.

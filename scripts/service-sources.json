@@ -8,7 +8,7 @@
       "Use shared branding, mascot, team and font assets with deployment-base-aware paths.",
       "Return main-site links to the current deployment.",
       "Remove +91 99448 52361; list remaining numbers under Call / WhatsApp with both actions.",
-      "Use VITE_WORKSHOP_ENQUIRY_ENDPOINT independently of the main site's different payload schema."
+      "Use the shared VITE_ENQUIRY_ENDPOINT for automatic enquiry email, with an optional VITE_WORKSHOP_ENQUIRY_ENDPOINT override."
     ]
   },
   "consultancy": {
@@ -19,7 +19,7 @@
     "adaptations": [
       "Adapt Next.js links and images to the existing React/Vite static build.",
       "Keep deployment-base-aware case-study pages, assets and main-site return links.",
-      "Keep the local email preparation form and supplied public contact settings.",
+      "Email enquiries through the shared endpoint, with local email drafts as a fallback and shared public contact settings.",
       "Group contact numbers under Call / WhatsApp in the contact section and footer."
     ]
   }

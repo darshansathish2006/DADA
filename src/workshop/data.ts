@@ -1,14 +1,10 @@
 import { sitePath } from '../site-paths';
+export { contactEmail, workshopNumbers as contactNumbers } from '../contact-details';
 
 export type Audience = 'school' | 'college';
 export type CategoryId = 'web' | 'ai' | 'coding' | 'design' | 'innovation';
 export const asset = (path: string) => sitePath(`/assets/${path}`);
 export const officialSite = sitePath('/');
-export const contactEmail = 'teamdadaoffl@gmail.com';
-export const contactNumbers = [
-  { number: '+917358528466', display: '+91 73585 28466' },
-  { number: '+917305966008', display: '+91 73059 66008' },
-];
 
 export const categories: { id: CategoryId; label: string; full: string; color: string }[] = [
   { id: 'web', label: 'Web & Internet', full: 'Web Development & Internet Technology', color: 'blue' },

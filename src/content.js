@@ -1,12 +1,13 @@
 import { sitePath } from './site-paths';
 import { technicalInitiatives } from './portfolio';
+import { enquiryEndpoint } from './contact-details';
 
 // Official team social URLs can be added when available.
 export const siteConfig = {
   fullName: 'Developers Advancing Dreams & Aspirations',
   consultancyUrl: import.meta.env.VITE_CONSULTANCY_URL || '/consultancy/',
   workshopsUrl: import.meta.env.VITE_WORKSHOPS_URL || '/workshop/',
-  enquiryEndpoint: import.meta.env.VITE_ENQUIRY_ENDPOINT || '',
+  enquiryEndpoint,
   mascot: sitePath('/assets/mascot/dada-mature-pointing.png'),
   // Add verified URLs here. Empty entries are displayed as unavailable, never fake links.
   socials: [

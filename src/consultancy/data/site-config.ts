@@ -1,11 +1,13 @@
-// Public contact details copied from the supplied DADA portfolio. No server credentials are used.
+import { contactEmail, teamNumbers, whatsappHref } from '../../contact-details';
+
+// Public contact details shared with the main site. No server credentials are used.
 export const siteConfig = {
   name: 'Team DADA',
   legalName: 'Team DADA',
   tagline: 'Website consultancy, design and development',
   description: 'Team DADA helps businesses and professionals plan, design and build websites, from brand sites and portfolios to catalogues and enquiry integrations.',
   location: 'Chennai, India',
-  email: 'teamdadaoffl@gmail.com',
+  email: contactEmail,
   booking: '',
   availability: 'Open for consultancy projects.',
   nav: [
@@ -26,11 +28,8 @@ export const hasEmail = true;
 export const hasBooking = false;
 export const bookingHref = '/#contact';
 export const socialLinks: { key: string; href: string; label: string }[] = [];
-export const phoneLinks = [
-  { number: '+919944852361', display: '+91 99448 52361', href: 'tel:+919944852361' },
-  { number: '+917358528466', display: '+91 73585 28466', href: 'tel:+917358528466' },
-];
+export const phoneLinks = teamNumbers.map(phone => ({ ...phone, href: `tel:${phone.number}` }));
 export const whatsappLinks = phoneLinks.map(phone => ({
   ...phone,
-  href: `https://wa.me/${phone.number.slice(1)}?text=${encodeURIComponent('Hi Team DADA! I would like to discuss a website consultancy project.')}`,
+  href: whatsappHref(phone.number, 'Hi Team DADA! I would like to discuss a website consultancy project.'),
 }));

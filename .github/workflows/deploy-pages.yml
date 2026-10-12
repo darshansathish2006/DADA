@@ -33,6 +33,9 @@ jobs:
       - name: Test
         run: npm test
       - name: Build for the repository path
+        env:
+          VITE_ENQUIRY_ENDPOINT: ${{ vars.VITE_ENQUIRY_ENDPOINT }}
+          VITE_WORKSHOP_ENQUIRY_ENDPOINT: ${{ vars.VITE_WORKSHOP_ENQUIRY_ENDPOINT }}
         run: npm run build -- --base /DADA/
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6

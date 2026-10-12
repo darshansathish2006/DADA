@@ -1,4 +1,5 @@
 import { activities, workshops } from './data';
+import { sendEnquiry } from '../enquiry-delivery';
 
 export interface EnquiryValues {
   name: string; email: string; institution: string; institutionType: string; audience: string;
@@ -27,12 +28,6 @@ export function composeEnquiry(values: EnquiryValues, topics: string[], selected
   return `Hello TEAM DADA,\n\nWe would like to discuss a workshop for our institution.\n\nName: ${values.name.trim()}\nEmail: ${values.email.trim()}\nInstitution: ${values.institution.trim()}\nInstitution type: ${values.institutionType}\nStudent audience: ${values.audience}\n\nInterested workshops:\n${workshops.filter(w => topics.includes(w.id)).map(w => `- ${w.title}`).join('\n')}\n\nInterested activities:\n${activities.filter(a => selectedActivities.includes(a.id)).map(a => `- ${a.title}`).join('\n') || 'Open to suggestions'}\n\nPreferred date: ${values.date || 'To discuss'}\nExpected participants: ${values.participants || 'To discuss'}\n\nAdditional requirements:\n${values.message.trim() || 'None specified'}\n\nI agree to be contacted by TEAM DADA about this enquiry.\n\nThis is an enquiry, not a confirmed booking.`;
 }
 
-// Optional host-owned integration: POST JSON; only { success: true } confirms receipt.
-// Never place service credentials in VITE_ variables; these are public build settings.
-export async function deliverEnquiry(endpoint: string, payload: unknown, requestId: string) {
-  try {
-    const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Idempotency-Key': requestId }, body: JSON.stringify(payload), signal: AbortSignal.timeout(15000) });
-    const result = await response.json().catch(() => null);
-    return response.ok && result?.success === true;
-  } catch { return false; }
+export function deliverEnquiry(endpoint: string, payload: Record<string, unknown>, requestId: string) {
+  return sendEnquiry(endpoint, { ...payload, source: 'workshop' }, { requestId });
 }

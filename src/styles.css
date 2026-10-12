@@ -242,6 +242,16 @@ h2 { font: 650 clamp(50px, 5.5vw, 80px)/.95 var(--font-display); letter-spacing:
 .contact-topics { display: flex; gap: 23px; flex-wrap: wrap; margin-top: 16px; border-top: 1px solid #364132; padding-top: 19px; }
 .contact-topics span { display: flex; align-items: center; gap: 7px; color: #9fac94; font-size: 9px; }
 .contact-topics svg { color: var(--green); }
+.direct-contact { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-style: normal; }
+.direct-contact-label { margin-bottom: 8px; font-size: 11px; font-weight: 700; color: var(--muted); }
+.direct-contact-email { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-bottom: 17px; font-size: 14px; text-decoration: underline; overflow-wrap: anywhere; }
+.direct-contact ul { display: grid; gap: 14px; list-style: none; margin: 0; padding: 0; }
+.direct-contact-number { font-size: 17px; font-weight: 700; }
+.direct-contact-actions { display: flex; flex-wrap: wrap; gap: 20px; }
+.direct-contact-actions a { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+.direct-contact a:hover { color: var(--blue-ink, var(--blue)); }
+.enquiry-fallback { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 15px; }
+.enquiry-trap { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
 .enquiry-form { padding: 29px; background: #070b08; border: 1px solid #48563e; border-top: 2px solid var(--green); margin-top: 9px; align-self: start; position: relative; }
 .enquiry-form::after { content: '+'; position: absolute; right: -6px; bottom: -8px; color: var(--green); font: 15px/1 var(--font-mono); }
 .form-heading { display: flex; justify-content: space-between; gap: 14px; font-size: 7px; color: #b0ca92; padding-bottom: 20px; border-bottom: 1px solid #2e3928; margin-bottom: 25px; }
