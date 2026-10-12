@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import vm from 'node:vm';
 
 const script = await readFile(new URL('../apps-script/Code.gs', import.meta.url), 'utf8');
-const main = { source: 'main', requestId: 'request-0001', name: 'Example Customer', email: 'customer@example.org', organization: 'Example Company', enquiryType: 'Project Collaboration', message: 'We would like help building our website.', website: '' };
+const main = { source: 'main', requestId: 'request-0001', name: 'Example Customer', phone: '+91 98765 43210', email: 'customer@example.org', organization: 'Example Company', enquiryType: 'Project Collaboration', message: 'We would like help building our website.', website: '' };
 const consultancy = { ...main, source: 'consultancy', enquiryType: 'Business website', budget: 'Under ₹50k', timeline: 'Within a month' };
 const workshop = { ...main, source: 'workshop', institution: 'Example College', institutionType: 'College', audience: 'College', topics: ['AI for Students'], activities: ['Spot the Fake'], date: '2040-10-15', participants: '60', consent: true };
 
@@ -63,16 +63,34 @@ for (const [source, input, fields] of [
   const email = backend.messages[0];
   assert.equal(email.to, 'teamdadaoffl@gmail.com');
   assert.equal(email.replyTo, input.email);
+  assert.ok(email.body.includes('Phone / WhatsApp:\n' + input.phone));
   assert.equal(email.from, undefined, 'Google uses the authorized team account');
   assert.match(email.subject, new RegExp(source === 'main' ? 'Main site' : source, 'i'));
   for (const field of [...fields, input.name, input.email, input.message, input.requestId]) assert(email.body.includes(field));
   assert.equal(backend.releases(), 1);
 });
 
+test('all three sources accept omitted or blank email and include the required phone without Reply-To', () => {
+  for (const input of [main, consultancy, workshop]) {
+    for (const email of ['', undefined]) {
+      const backend = server();
+      assert.equal(backend.post({ ...input, email }).success, true);
+      const message = backend.messages[0];
+      assert.equal(Object.hasOwn(message, 'replyTo'), false);
+      assert.ok(message.body.includes('Phone / WhatsApp:\n' + input.phone));
+      assert.match(message.body, /No email address was provided/);
+      assert.doesNotMatch(message.body, /Reply to this email/);
+    }
+  }
+});
+
 test('rejects malformed, oversized, injected and incomplete requests before sending', () => {
   const backend = server();
   for (const payload of [null, [], {}, { ...main, source: '__proto__' }, { ...main, requestId: 'x' },
     { ...main, email: 'customer@example.org\r\nBcc: attacker@example.org' }, { ...main, message: 'x'.repeat(5001) },
+    { ...main, phone: '' }, { ...main, phone: undefined }, { ...main, phone: '1234' },
+    { ...main, phone: '1234567890123456' }, { ...main, phone: 'abc9876543210' },
+    { ...main, phone: '+91 98765\n43210' }, { ...main, phone: '+91+9876543210' },
     { ...main, website: 'bot.example' }, { ...main, name: '' }, { ...main, enquiryType: 'Unsupported' },
     { ...workshop, consent: false }, { ...workshop, topics: [] }, { ...workshop, participants: '0' },
     { ...workshop, date: '2020-01-01' }, { ...workshop, date: '2040-02-30' }, { ...workshop, topics: Array(11).fill('topic') },
@@ -90,6 +108,7 @@ test('deduplicates unchanged retries and rejects reuse of an ID for changed cont
   assert.equal(backend.calls(), 1);
   const stored = [...backend.data.values()].join('');
   assert(!stored.includes(main.email));
+  assert(!stored.includes(main.phone));
   assert(!stored.includes(main.name));
   assert(!stored.includes(main.message));
 });
@@ -111,6 +130,7 @@ test('wrong deployment account, exhausted quota and a busy lock do not send', ()
     assert.equal(backend.calls(), 0);
   }
   assert.equal(server().get().ready, true);
+  assert.equal(server().get().version, 2);
   assert.equal(server({ account: 'another@gmail.com' }).get().ready, false);
 });
 
@@ -121,8 +141,15 @@ test('per-customer and global rate limits prevent repeated public submissions', 
   backend.advance(600001);
   assert.equal(backend.post({ ...main, requestId: 'request-allowed' }).success, true);
   const global = server();
-  for (let i = 0; i < 10; i++) assert.equal(global.post({ ...main, email: `customer${i}@example.org`, requestId: `global-request-${i}` }).success, true);
+  for (let i = 0; i < 10; i++) assert.equal(global.post({ ...main, phone: `+91987654321${i}`, email: `customer${i}@example.org`, requestId: `global-request-${i}` }).success, true);
   assert.equal(global.post({ ...main, requestId: 'global-blocked' }).code, 'rate_limit');
+});
+
+test('phone limits work without email and cannot be bypassed by display separators or changed emails', () => {
+  const backend = server();
+  for (let i = 0; i < 3; i++) assert.equal(backend.post({ ...main, email: '', requestId: `phone-request-${i}` }).success, true);
+  assert.equal(backend.post({ ...main, phone: '+91 (98765)-43210', email: 'different@example.org', requestId: 'phone-blocked' }).code, 'rate_limit');
+  assert.equal(backend.post({ ...main, phone: '+91 98765 43211', email: '', requestId: 'different-phone' }).success, true);
 });
 
 test('expires deduplication records after 24 hours without deleting unrelated settings', () => {

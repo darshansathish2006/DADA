@@ -1,11 +1,12 @@
 import { activities, workshops } from './data';
 import { sendEnquiry } from '../enquiry-delivery';
+import { validateContactDetails } from '../contact-validation.js';
 
 export interface EnquiryValues {
-  name: string; email: string; institution: string; institutionType: string; audience: string;
+  name: string; phone: string; email: string; institution: string; institutionType: string; audience: string;
   date: string; participants: string; message: string; consent: boolean;
 }
-export const emptyEnquiry: EnquiryValues = { name: '', email: '', institution: '', institutionType: '', audience: '', date: '', participants: '', message: '', consent: false };
+export const emptyEnquiry: EnquiryValues = { name: '', phone: '', email: '', institution: '', institutionType: '', audience: '', date: '', participants: '', message: '', consent: false };
 export type EnquiryErrors = Partial<Record<keyof EnquiryValues | 'topics', string>>;
 export function localDate() {
   const now = new Date();
@@ -14,7 +15,7 @@ export function localDate() {
 export function validateEnquiry(values: EnquiryValues, topics: string[]): EnquiryErrors {
   const errors: EnquiryErrors = {};
   if (!values.name.trim()) errors.name = 'Please enter your name.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) errors.email = 'Enter a valid email address, such as you@school.edu.';
+  Object.assign(errors, validateContactDetails(values));
   if (!values.institution.trim()) errors.institution = 'Please enter your institution’s name.';
   if (!values.institutionType) errors.institutionType = 'Choose an institution type.';
   if (!values.audience) errors.audience = 'Choose your student audience.';
@@ -25,7 +26,7 @@ export function validateEnquiry(values: EnquiryValues, topics: string[]): Enquir
   return errors;
 }
 export function composeEnquiry(values: EnquiryValues, topics: string[], selectedActivities: string[]) {
-  return `Hello TEAM DADA,\n\nWe would like to discuss a workshop for our institution.\n\nName: ${values.name.trim()}\nEmail: ${values.email.trim()}\nInstitution: ${values.institution.trim()}\nInstitution type: ${values.institutionType}\nStudent audience: ${values.audience}\n\nInterested workshops:\n${workshops.filter(w => topics.includes(w.id)).map(w => `- ${w.title}`).join('\n')}\n\nInterested activities:\n${activities.filter(a => selectedActivities.includes(a.id)).map(a => `- ${a.title}`).join('\n') || 'Open to suggestions'}\n\nPreferred date: ${values.date || 'To discuss'}\nExpected participants: ${values.participants || 'To discuss'}\n\nAdditional requirements:\n${values.message.trim() || 'None specified'}\n\nI agree to be contacted by TEAM DADA about this enquiry.\n\nThis is an enquiry, not a confirmed booking.`;
+  return `Hello TEAM DADA,\n\nWe would like to discuss a workshop for our institution.\n\nName: ${values.name.trim()}\nPhone / WhatsApp: ${values.phone.trim()}\nEmail: ${values.email.trim() || 'Not provided'}\nInstitution: ${values.institution.trim()}\nInstitution type: ${values.institutionType}\nStudent audience: ${values.audience}\n\nInterested workshops:\n${workshops.filter(w => topics.includes(w.id)).map(w => `- ${w.title}`).join('\n')}\n\nInterested activities:\n${activities.filter(a => selectedActivities.includes(a.id)).map(a => `- ${a.title}`).join('\n') || 'Open to suggestions'}\n\nPreferred date: ${values.date || 'To discuss'}\nExpected participants: ${values.participants || 'To discuss'}\n\nAdditional requirements:\n${values.message.trim() || 'None specified'}\n\nI agree to be contacted by TEAM DADA about this enquiry.\n\nThis is an enquiry, not a confirmed booking.`;
 }
 
 export function deliverEnquiry(endpoint: string, payload: Record<string, unknown>, requestId: string) {

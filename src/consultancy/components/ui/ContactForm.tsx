@@ -6,10 +6,10 @@ import Button from './Button';
 import { enquiryEndpoint } from '../../../contact-details';
 import { sendEnquiry } from '../../../enquiry-delivery';
 
-const initialValues = { name: '', email: '', enquiryType: '', budget: '', timeline: '', message: '' };
+const initialValues = { name: '', phone: '', email: '', enquiryType: '', budget: '', timeline: '', message: '' };
 type Field = keyof typeof initialValues;
 const labels: Record<Field, string> = {
-  name: 'Name', email: 'Email', enquiryType: 'What is this about?',
+  name: 'Name *', phone: 'Phone / WhatsApp number *', email: 'Email (optional)', enquiryType: 'What is this about? *',
   budget: 'Budget (optional)', timeline: 'Timeline (optional)', message: 'Message',
 };
 
@@ -26,7 +26,7 @@ export default function ContactForm() {
   const inFlight = useRef(false);
   const request = useRef({ payload: '', id: '' });
   const input = normalizeContact(values);
-  const body = `Name: ${input.name}\nEmail: ${input.email}\nAbout: ${input.enquiryType}\nBudget: ${input.budget || 'Not specified'}\nTimeline: ${input.timeline || 'Not specified'}\n\n${input.message}`;
+  const body = `Name: ${input.name}\nPhone / WhatsApp: ${input.phone}\nEmail: ${input.email || 'Not provided'}\nAbout: ${input.enquiryType}\nBudget: ${input.budget || 'Not specified'}\nTimeline: ${input.timeline || 'Not specified'}\n\n${input.message}`;
   const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Consultancy enquiry — ${input.enquiryType}`)}&body=${encodeURIComponent(body)}`;
 
   function update(field: Field, value: string) {
@@ -64,10 +64,11 @@ export default function ContactForm() {
     <div><h3 className="text-h3">Start a conversation</h3><p className="mt-2 text-small text-muted">{enquiryEndpoint ? <>Your enquiry is emailed to <a href={`mailto:${siteConfig.email}`} className="underline break-all">{siteConfig.email}</a>. We’ll reply using your contact details.</> : <>Prepare an email to <a href={`mailto:${siteConfig.email}`} className="underline break-all">{siteConfig.email}</a>, or use the call and WhatsApp links beside this form.</>}</p></div>
     <fieldset disabled={busy} className="grid min-w-0 gap-6"><legend className="sr-only">Consultancy enquiry</legend>
     <div className="absolute -left-[10000px] size-px overflow-hidden" aria-hidden="true"><label htmlFor={`${id}-website`}>Leave this field empty</label><input id={`${id}-website`} name="website" value={website} onChange={e => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" /></div>
-    <div className="grid gap-6 md:grid-cols-2">{(['name', 'email'] as Field[]).map(field => <div key={field}>
+    <div className="grid gap-6 md:grid-cols-2">{(['name', 'phone', 'email'] as const).map(field => <div key={field} className={field === 'email' ? 'md:col-span-2' : undefined}>
       <label htmlFor={`${id}-${field}`} className="mb-2 block text-small font-semibold">{labels[field]}</label>
-      <input id={`${id}-${field}`} name={field} type={field === 'email' ? 'email' : 'text'} autoComplete={field}
-        maxLength={field === 'name' ? 80 : 120} required value={values[field]} onChange={e => update(field, e.target.value)}
+      <input id={`${id}-${field}`} name={field} type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'} autoComplete={field === 'phone' ? 'tel' : field}
+        inputMode={field === 'phone' ? 'tel' : undefined} placeholder={field === 'phone' ? 'Your number, with country code' : undefined}
+        maxLength={field === 'name' ? 80 : field === 'phone' ? 30 : 120} required={field !== 'email'} value={values[field]} onChange={e => update(field, e.target.value)}
         className="field" aria-invalid={Boolean(errors[field])} aria-describedby={errors[field] ? `${id}-${field}-error` : undefined} />
       {errors[field] && <p id={`${id}-${field}-error`} className="mt-2 text-small text-[#b42323]" role="alert">{errors[field]}</p>}
     </div>)}</div>
@@ -83,7 +84,7 @@ export default function ContactForm() {
         {errors[field] && <p id={`${id}-${field}-error`} className="mt-2 text-small text-[#b42323]" role="alert">{errors[field]}</p>}
       </div>;
     })}
-    <div><label htmlFor={`${id}-message`} className="mb-2 block text-small font-semibold">Message</label>
+    <div><label htmlFor={`${id}-message`} className="mb-2 block text-small font-semibold">Message *</label>
       <textarea id={`${id}-message`} name="message" required rows={5} maxLength={2000} className="field resize-y" value={values.message}
         onChange={e => update('message', e.target.value)} placeholder="Tell us about your project or question."
         aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? `${id}-message-error` : undefined} />

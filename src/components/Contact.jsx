@@ -5,7 +5,7 @@ import { Icon, MascotImage } from './Shared';
 import ContactDetails from './ContactDetails';
 import { contactEmail } from '../contact-details';
 
-const initialValues = { name: '', email: '', organization: '', enquiryType: '', message: '', website: '' };
+const initialValues = { name: '', phone: '', email: '', organization: '', enquiryType: '', message: '', website: '' };
 export default function Contact({ enquiryType }) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
@@ -39,7 +39,7 @@ export default function Contact({ enquiryType }) {
       if (result.ok) { setValues(initialValues); requestIdentity.current = { payload: '', id: '' }; }
     } finally { clearTimeout(timeout); inFlight.current = false; setSubmitting(false); activeRequest.current = null; }
   }
-  const enquiryText = `Name: ${values.name}\nEmail: ${values.email}\nOrganization: ${values.organization || '—'}\nEnquiry: ${values.enquiryType}\n\n${values.message}`;
+  const enquiryText = `Name: ${values.name}\nPhone / WhatsApp: ${values.phone}\nEmail: ${values.email || 'Not provided'}\nOrganization: ${values.organization || '—'}\nEnquiry: ${values.enquiryType}\n\n${values.message}`;
   const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`DADA main site enquiry — ${values.enquiryType}`)}&body=${encodeURIComponent(enquiryText)}`;
   async function copyEnquiry() {
     try { await navigator.clipboard.writeText(enquiryText); setCopied(true); }
@@ -52,7 +52,8 @@ export default function Contact({ enquiryType }) {
     <form className="enquiry-form reveal" noValidate onSubmit={onSubmit} ref={formRef} aria-busy={submitting}>
       <div className="form-heading mono"><span>NEW TRANSMISSION</span><span>↗ DADA / CONTACT</span></div>
       <div className="enquiry-trap" aria-hidden="true"><label htmlFor="enquiry-website">Leave this field empty</label><input {...fieldProps('website')} tabIndex={-1} autoComplete="off" /></div>
-      <div className="form-row"><div className="form-field"><label htmlFor="enquiry-name">Full name <span>*</span></label><input {...fieldProps('name')} placeholder="Your name" autoComplete="name" maxLength={120} required />{error('name')}</div><div className="form-field"><label htmlFor="enquiry-email">Email address <span>*</span></label><input {...fieldProps('email')} placeholder="you@example.com" type="email" autoComplete="email" maxLength={254} required />{error('email')}</div></div>
+      <div className="form-row"><div className="form-field"><label htmlFor="enquiry-name">Full name <span>*</span></label><input {...fieldProps('name')} placeholder="Your name" autoComplete="name" maxLength={120} required />{error('name')}</div><div className="form-field"><label htmlFor="enquiry-phone">Phone / WhatsApp number <span>*</span></label><input {...fieldProps('phone')} placeholder="Your number, with country code" type="tel" inputMode="tel" autoComplete="tel" maxLength={30} required />{error('phone')}</div></div>
+      <div className="form-field"><label htmlFor="enquiry-email">Email address <small>Optional</small></label><input {...fieldProps('email')} placeholder="you@example.com" type="email" autoComplete="email" maxLength={254} />{error('email')}</div>
       <div className="form-row"><div className="form-field"><label htmlFor="enquiry-organization">Organization / Institution <small>Optional</small></label><input {...fieldProps('organization')} placeholder="Where are you from?" autoComplete="organization" maxLength={180} /></div><div className="form-field"><label htmlFor="enquiry-enquiryType">Enquiry type <span>*</span></label><select {...fieldProps('enquiryType')} required><option value="">Select an enquiry type</option>{enquiryTypes.map(type => <option key={type}>{type}</option>)}</select>{error('enquiryType')}</div></div>
       <div className="form-field"><label htmlFor="enquiry-message">Your message <span>*</span></label><textarea {...fieldProps('message')} placeholder="What's on your mind? Tell us a little about your idea…" rows="5" maxLength={5000} required />{error('message')}</div>
       {status && <div className={`form-status ${status.ok ? 'status-success' : ''}`} role={status.ok ? 'status' : 'alert'}><Icon name={status.ok ? 'check' : 'lightbulb'} size={20} /><p>{status.message}</p></div>}

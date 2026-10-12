@@ -2,12 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { submitEnquiry, validateEnquiry } from '../src/enquiry.js';
 
-const valid = { name: '  Example Student  ', email: 'student@example.com', organization: '', enquiryType: 'Project Collaboration', message: '  Let us collaborate.  ' };
+const valid = { name: '  Example Student  ', phone: '  +91 98765 43210  ', email: 'student@example.com', organization: '', enquiryType: 'Project Collaboration', message: '  Let us collaborate.  ' };
 
 test('validation catches blank required fields and malformed email', () => {
-  assert.deepEqual(Object.keys(validateEnquiry({ name: ' ', email: '', message: ' ' })).sort(), ['email', 'enquiryType', 'message', 'name']);
+  assert.deepEqual(Object.keys(validateEnquiry({ name: ' ', email: '', message: ' ' })).sort(), ['enquiryType', 'message', 'name', 'phone']);
   assert.ok(validateEnquiry({ ...valid, email: 'not-an-email' }).email);
   assert.deepEqual(validateEnquiry(valid), {});
+  assert.deepEqual(validateEnquiry({ ...valid, email: '' }), {});
+  assert.deepEqual(validateEnquiry({ ...valid, email: undefined }), {});
+  assert.ok(validateEnquiry({ ...valid, phone: '' }).phone);
+  assert.ok(validateEnquiry({ ...valid, phone: 'abc9876543210' }).phone);
 });
 
 test('an unconfigured endpoint never sends or claims success', async () => {
@@ -25,6 +29,7 @@ test('successful submission requires an explicit acknowledgement and trims data'
   assert.equal(result.ok, true);
   assert.equal(sent.options.headers['Idempotency-Key'], 'repeat-safe-id');
   assert.equal(JSON.parse(sent.options.body).name, 'Example Student');
+  assert.equal(JSON.parse(sent.options.body).phone, '+91 98765 43210');
   assert.equal(JSON.parse(sent.options.body).message, 'Let us collaborate.');
 });
 

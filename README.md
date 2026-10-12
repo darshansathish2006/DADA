@@ -4,7 +4,7 @@ A responsive React/Vite portfolio for Team DADA — Developers Advancing Dreams 
 
 ## Run
 
-Requires Node.js 20.19+ or 22.12+.
+Uses Node.js 24.x, matching GitHub Actions and the Vercel project setting declared in `package.json`.
 
 ```sh
 npm install
@@ -20,6 +20,14 @@ npm test
 ```
 
 The production files are generated in `dist/`. Deploy that directory to a static host. No backend or external service is required to browse the site.
+
+### Vercel
+
+Import this GitHub repository into Vercel with the repository root as the **Root Directory**. The checked-in `vercel.json` selects **Vite**, installs with `npm ci`, runs `npm test && npm run build`, and publishes **dist**. No Vercel Functions or additional email credentials are needed; enquiry delivery uses the existing Google Apps Script service.
+
+Vercel uses the root path `/`. Keep the build command from `vercel.json`; the `/DADA/` base flag belongs only to the GitHub Pages workflow. The build emits separate HTML files for `/`, `/workshop/`, `/consultancy/`, and every `/consultancy/work/<slug>/` case study, so direct links and refreshes work without a catch-all SPA rewrite. `trailingSlash: true` keeps directory URLs consistent. See [Vercel's Vite guide](https://vercel.com/docs/frameworks/frontend/vite) and [configuration reference](https://vercel.com/docs/project-configuration/vercel-json).
+
+The shared Google endpoint is already configured in source. To use another deployment, set `VITE_ENQUIRY_ENDPOINT` in Vercel's project environment variables and redeploy; `VITE_WORKSHOP_ENQUIRY_ENDPOINT` is an optional workshop-only override. These are public URLs, never passwords. Before publishing the required-phone forms, update the existing Apps Script deployment using [the phone-contact upgrade instructions](apps-script/README.md#update-the-existing-deployment-for-phone-enquiries). Verify the endpoint reports `version: 2` and `ready: true`.
 
 ### GitHub Pages
 
@@ -72,7 +80,9 @@ Set `VITE_CONSULTANCY_URL` or `VITE_WORKSHOPS_URL` only to override their bundle
 
 The email backend in `apps-script/Code.gs` is deployed and authorized in **teamdadaoffl@gmail.com**. Its public Google `/exec` URL is configured in `src/contact-details.js`, so all three forms work with ordinary local and GitHub Pages builds. The website stays on GitHub Pages. See [the setup and maintenance guide](apps-script/README.md) to recreate the script or change deployments. `VITE_ENQUIRY_ENDPOINT` optionally overrides the default: use a GitHub Actions repository variable for Pages, or `.env.local` for local development.
 
-The script sends **from the team Gmail account to the same account**, with the customer as Reply-To. Subjects identify Main site, Workshop or Consultancy. Bodies include all submitted enquiry fields, the enquiry ID and the time. Recipient/sender are fixed on the server. Validation, a honeypot, per-customer/global limits and 24-hour retry deduplication run on Google's servers. Only request hashes, timestamps and state are kept in Script Properties; enquiry text is not stored there.
+Every form requires a **Phone / WhatsApp number** (10–15 digits; spaces, parentheses, hyphens and a leading `+` are accepted). **Email is optional** and is validated when provided. Both contact fields are included in the payload, email body and fallback draft. The Apps Script deployment must be updated to version 2 for this contract; replacing a file in GitHub does not update the running Google script.
+
+The script sends **from the team Gmail account to the same account**, with the customer as Reply-To only when they supplied an email. Otherwise the message asks the team to contact the customer by phone / WhatsApp. Subjects identify Main site, Workshop or Consultancy. Bodies include all submitted enquiry fields, the enquiry ID and the time. Recipient/sender are fixed on the server. Validation, a honeypot, per-phone/global limits and 24-hour retry deduplication run on Google's servers. Only request hashes, timestamps and state are kept in Script Properties; enquiry text is not stored there.
 
 `src/contact-details.js` centralizes the inbox, contact numbers and endpoint settings. Every enquiry section includes email and **Call / WhatsApp** links; the workshop's excluded number stays excluded. `src/enquiry-delivery.js` handles acknowledged submissions from all three forms. It never treats an unreadable response or network failure as a sent email.
 
@@ -91,6 +101,7 @@ Idempotency-Key: <unique ID retained across retries of the same enquiry>
   "name": "A real visitor",
   "source": "main",
   "requestId": "a-unique-enquiry-id",
+  "phone": "+91 98765 43210",
   "email": "visitor@example.com",
   "organization": "Optional institution",
   "enquiryType": "Project Collaboration",
@@ -100,9 +111,9 @@ Idempotency-Key: <unique ID retained across retries of the same enquiry>
 
 If replacing the supplied Google backend, the replacement must:
 
-1. Validate all fields again. Enforce limits matching the UI (name 120, email 254, organization 180, message 5000 characters), and validate the enquiry type.
+1. Validate all fields again. Require a valid phone (10–15 digits, up to 30 display characters); allow blank email, validating it when supplied. Enforce limits matching the UI (name 120, email 254, organization 180, message 5000 characters), and validate the enquiry type.
 2. Configure a team inbox, verified sender, and an email provider on the server. Typical **server-only** variables: `ENQUIRY_TO_EMAIL`, `ENQUIRY_FROM_EMAIL`, and your selected provider’s API key. Their exact names depend on the backend you choose.
-3. Use a verified sender and the visitor’s email as `Reply-To`; never accept a sender or destination email from the client.
+3. Use a verified sender and set `Reply-To` only when the visitor supplies an email; never accept a sender or destination email from the client.
 4. Rate limit requests and implement idempotency using the request header, preventing duplicate email on retries.
 5. If the API is on another origin, allow only your deployed site origin in CORS, including `Content-Type` and `Idempotency-Key` headers and the `OPTIONS` preflight.
 6. Respond with a successful HTTP status and **`{ "success": true }` only after the email provider accepts the message**. Failed or unconfirmed responses keep the form data and display an error. The frontend aborts unconfirmed requests after 30 seconds and never assumes delivery.

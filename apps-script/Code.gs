@@ -8,8 +8,8 @@ var DADA_RECORD_TTL = 24 * 60 * 60 * 1000;
 
 function doGet() {
   try {
-    return json_({ service: 'DADA enquiries', ready: accountReady_() && MailApp.getRemainingDailyQuota() > 0 });
-  } catch (_error) { return json_({ service: 'DADA enquiries', ready: false }); }
+    return json_({ service: 'DADA enquiries', version: 2, ready: accountReady_() && MailApp.getRemainingDailyQuota() > 0 });
+  } catch (_error) { return json_({ service: 'DADA enquiries', version: 2, ready: false }); }
 }
 
 // Run this once in the editor to authorize sending. It does not send an email.
@@ -44,27 +44,28 @@ function doPost(event) {
     }
     if (MailApp.getRemainingDailyQuota() < 1) return json_({ success: false, code: 'unavailable' });
 
-    var emailHash = hash_(enquiry.email.toLowerCase());
+    var phoneHash = hash_(enquiry.phone.replace(/\D/g, ''));
     var recent = Object.keys(records).map(function (entry) { return records[entry]; });
     // Bound public submissions; only hashes/timestamps/status are retained.
     if (recent.length >= 1000 ||
         recent.filter(function (entry) { return now - entry.createdAt < 60000; }).length >= 10 ||
-        recent.filter(function (entry) { return entry.emailHash === emailHash && now - entry.createdAt < 600000; }).length >= 3) {
+        recent.filter(function (entry) { return entry.phoneHash === phoneHash && now - entry.createdAt < 600000; }).length >= 3) {
       return json_({ success: false, code: 'rate_limit' });
     }
 
-    var record = { fingerprint: fingerprint, emailHash: emailHash, createdAt: now, state: 'sending' };
+    var record = { fingerprint: fingerprint, phoneHash: phoneHash, createdAt: now, state: 'sending' };
     // Record before sending. An interrupted execution must not send a duplicate
     // on retry; only a completed MailApp call plus stored receipt yields success.
     properties.setProperty(key, JSON.stringify(record));
     try {
-      MailApp.sendEmail({
+      var mail = {
         to: DADA_INBOX,
         name: 'Team DADA Enquiries',
-        replyTo: enquiry.email,
         subject: '[DADA ' + DADA_SOURCES[enquiry.source] + ' Enquiry] ' + enquiry.name,
         body: emailBody_(enquiry, now),
-      });
+      };
+      if (enquiry.email) mail.replyTo = enquiry.email;
+      MailApp.sendEmail(mail);
       record.state = 'sent';
       properties.setProperty(key, JSON.stringify(record));
     } catch (_error) {
@@ -129,9 +130,12 @@ function validateEnquiry_(input) {
   var requestId = field_(input, 'requestId', 80, true, false);
   if (!/^[a-zA-Z0-9_-]{8,80}$/.test(requestId) || field_(input, 'website', 300, false, false)) throw new Error('Invalid request');
   var name = field_(input, 'name', 120, true, false);
-  var email = field_(input, 'email', 254, true, false);
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Invalid email');
-  var fields = [['Name', name], ['Email / reply-to', email]];
+  var phone = field_(input, 'phone', 30, true, false);
+  var phoneDigits = phone.replace(/\D/g, '');
+  if (!/^\+?[0-9 ()-]+$/.test(phone) || phoneDigits.length < 10 || phoneDigits.length > 15) throw new Error('Invalid phone');
+  var email = field_(input, 'email', 254, false, false);
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Invalid email');
+  var fields = [['Name', name], ['Phone / WhatsApp', phone], ['Email / reply-to', email || 'Not provided — contact by phone']];
   if (input.source === 'workshop') {
     fields.push(['Institution', field_(input, 'institution', 180, true, false)]);
     fields.push(['Institution type', choices_(field_(input, 'institutionType', 30, true, false), ['School', 'College', 'Other'])]);
@@ -155,7 +159,7 @@ function validateEnquiry_(input) {
     if (input.source === 'consultancy' && (name.length < 2 || message.length < 20)) throw new Error('More detail required');
     fields.push(['Message', message]);
   }
-  return { source: input.source, requestId: requestId, name: name, email: email, fields: fields };
+  return { source: input.source, requestId: requestId, name: name, phone: phone, email: email, fields: fields };
 }
 
 function emailBody_(enquiry, timestamp) {
@@ -163,6 +167,7 @@ function emailBody_(enquiry, timestamp) {
     '\nReceived: ' + Utilities.formatDate(new Date(timestamp), 'Asia/Kolkata', 'dd MMM yyyy, HH:mm:ss') + ' IST' +
     '\nEnquiry ID: ' + enquiry.requestId + '\n\n' +
     enquiry.fields.map(function (field) { return field[0] + ':\n' + field[1]; }).join('\n\n') +
-    '\n\nReply to this email to contact ' + enquiry.name + ' at ' + enquiry.email + '.' +
+    (enquiry.email ? '\n\nReply to this email to contact ' + enquiry.name + ' at ' + enquiry.email + '.'
+      : '\n\nNo email address was provided. Contact ' + enquiry.name + ' by phone / WhatsApp at ' + enquiry.phone + '.') +
     (enquiry.source === 'workshop' ? '\nThis is an enquiry, not a confirmed workshop booking.' : '');
 }
