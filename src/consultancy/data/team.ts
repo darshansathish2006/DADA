@@ -27,7 +27,7 @@ export const teamSize = 6;
 export const team: TeamMember[] = [
   {
     name: 'Darshan C S',
-    role: 'Co-Lead Developer',
+    role: 'Technical Expert, Co-Lead Developer',
     focus: ['Full stack engineering', 'AI developer'],
     photo: { src: '/team/darshan-c-s.jpg', alt: 'Portrait of Darshan C S', width: 854, height: 845 },
     linkedin: 'https://www.linkedin.com/in/darshan-c-s-77ab43331',
