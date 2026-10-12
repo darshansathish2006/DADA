@@ -1,9 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#030405" />
+    <script>
+      try {
+        if (localStorage.getItem('dada-theme') === 'light') {
+          document.documentElement.dataset.theme = 'light';
+          document.querySelector('meta[name="theme-color"]').content = '#ffffff';
+        }
+      } catch { /* The toggle still works when browser storage is unavailable. */ }
+    </script>
     <meta name="description" content="DADA — Developers Advancing Dreams &amp; Aspirations. A student-led technical team building projects, software, and hands-on learning experiences." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="DADA | Developers Advancing Dreams &amp; Aspirations" />

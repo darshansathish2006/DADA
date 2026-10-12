@@ -1,0 +1,136 @@
+/* The theme control stays outside the collapsible navigation. */
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-links { margin-left: auto; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 9px 12px; border: 1px solid var(--border); background: var(--panel); color: var(--text); font-size: 10px; white-space: nowrap; }
+.theme-toggle > svg { color: var(--blue); }
+.theme-toggle:hover { border-color: var(--blue); box-shadow: 0 0 14px #1687ff25; }
+@media (max-width: 1099px) {
+  .nav-actions { margin-left: auto; }
+  .nav-actions .menu-toggle { width: 44px; height: 44px; }
+}
+@media (max-width: 539px) {
+  .nav-container { gap: 10px; }
+  .brand-caption { display: none; }
+  .nav-actions { gap: 8px; }
+  .theme-toggle { padding-inline: 10px; }
+}
+
+/* White surfaces and deeper accent text; the original neon borders stay bright. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #ffffff; --panel: #f3f7fc; --text: #111b2b; --muted: #526173; --border: #cbd5e1;
+  --blue-ink: #0062c7; --orange-ink: #a33d06; --green-ink: #356b05; --pink-ink: #ab157e;
+}
+[data-theme='light'] :focus-visible { outline-color: var(--blue-ink); }
+[data-theme='light'] .site-header { background: #fffffff2; }
+[data-theme='light'] .nav-links.is-open { background: var(--bg); }
+[data-theme='light'] .nav-links > a:not(.button) { color: var(--muted); }
+[data-theme='light'] .nav-links > a:hover,
+[data-theme='light'] .nav-links > a[aria-current] { color: var(--blue-ink); }
+[data-theme='light'] .brand-caption { border-color: var(--border); }
+[data-theme='light'] .menu-toggle { border-color: var(--border); color: var(--blue-ink); }
+[data-theme='light'] .site-shell::before { background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), #16345608 calc(25% - 1px) 25%); }
+[data-theme='light'] .signal-field { opacity: .35; }
+[data-theme='light'] :is(.about-section, .contributions-section, .contact-section, .footer) { background: #fffffff0; }
+[data-theme='light'] .contact-section { border-color: var(--border); }
+[data-theme='light'] :is(.signal-ticker, .mascot-signature, .mascot-label, .log-marker) { background: var(--panel); }
+[data-theme='light'] :is(.eyebrow, .chapter, .hero-description, .hero-expansion, .hero-foot,
+  .about-story > p:not(.micro-label), .about-build-loop, .about-value p, .about-coordinate,
+  .channel-panel p, .section-open-hint, .work-card-copy > p, .work-card-top, .workshop-topic,
+  .achievement-top, .achievement-meta, .achievement-card > p, .log-status,
+  .gallery-open-hint, .node-description, .member-role, .member-introduction,
+  .contact-copy > p, .contact-topics span, .form-heading, .form-field label,
+  .form-field label > small, .form-bottom > p, .delivery-note,
+  .footer-brand > .footer-expansion, .footer-links > .mono, .footer-bottom a, .footer-motion,
+  .contribution-detail-top button, .project-description p, .project-selector button .mono,
+  .carousel-hint, .carousel-controls > span > span, .records-intro > p, .record-meta,
+  .record-copy p, .event-gallery-caption, .pose-gallery figcaption) { color: var(--muted); }
+[data-theme='light'] :is(.section-open-hint strong, .gallery-open-hint strong,
+  .form-bottom strong, .project-description .project-subtitle, .record-copy .record-detail) { color: var(--text); }
+
+/* Accent lettering needs more contrast than the glowing edges on white. */
+[data-theme='light'] :is(.blue-text, .accent, .eyebrow > span:first-child, .chapter > span:first-child,
+  .hero-expansion > span, .hero-page, .mascot-label, .about-story > .micro-label,
+  .about-visual-note, .client-preview-caption, .achievement-top > span:first-child,
+  .result-finalist, .footer-mascot-link, .modal-icon, .text-link:hover) { color: var(--blue-ink); }
+[data-theme='light'] :is(.orange-text, .title-period, .record-project, .result-winner,
+  .records-intro > p strong, .work-invitations .workshop-caption) { color: var(--orange-ink); }
+[data-theme='light'] :is(.green-text, .hero-editorial em, .about-build-loop > span:last-child,
+  .hello-sticker, .contact-arrow, .contact-topics svg, .contact-copy .eyebrow > span:first-child,
+  .form-field label > span, .copy-enquiry, .project-category, .project-description .project-highlight,
+  .carousel-controls > span, .carousel-controls button, .footer-motion:hover) { color: var(--green-ink); }
+[data-theme='light'] :is(.pink-text, .crew-count > span, .footer-period, .footer-arrow,
+  .engagement-record .record-meta > span:first-child, .event-gallery-controls button) { color: var(--pink-ink); }
+[data-theme='light'] :is(.contact-copy h2, .contribution-heading h2) .outline-title { -webkit-text-stroke-color: var(--green-ink); }
+[data-theme='light'] .service-channel { --channel-ink: var(--blue-ink); background: var(--bg); }
+[data-theme='light'] .channel-2 { --channel-ink: var(--orange-ink); }
+[data-theme='light'] .channel-3 { --channel-ink: var(--green-ink); }
+[data-theme='light'] .channel-4 { --channel-ink: var(--pink-ink); }
+[data-theme='light'] .service-channel.is-active { background: var(--panel); }
+[data-theme='light'] :is(.channel-number, .channel-symbol, .channel-link, .is-active .channel-heading h3, .channel-heading:hover h3) { color: var(--channel-ink); }
+[data-theme='light'] :is(.about-value, .member-card) { --accent-ink: var(--blue-ink); }
+[data-theme='light'] :is(.value-2, .crew-2) { --accent-ink: var(--orange-ink); }
+[data-theme='light'] :is(.value-3, .crew-3) { --accent-ink: var(--green-ink); }
+[data-theme='light'] :is(.value-4, .crew-4) { --accent-ink: var(--pink-ink); }
+[data-theme='light'] :is(.about-value-symbol, .member-index, .member-edge, .member-socials > a) { color: var(--accent-ink); }
+
+/* Photo and project frames keep their original images, with light captions. */
+[data-theme='light'] :is(.about-team-shot, .about-project-shot, .about-character-action,
+  .client-preview-screen, .project-screen, .initiative-record, .engagement-record, .pose-gallery figure) { background: var(--bg); }
+[data-theme='light'] :is(.about-window-bar, .project-screen-bar, .project-screen figcaption,
+  .about-team-shot figcaption, .about-character-action) { background: var(--panel); color: var(--muted); border-color: var(--border); }
+[data-theme='light'] .about-team-shot figcaption .mono { color: var(--blue-ink); }
+[data-theme='light'] .about-project-shot figcaption { color: var(--orange-ink); }
+[data-theme='light'] .about-project-shot { box-shadow: 0 0 7px #ff742b40, 0 18px 35px #132b5126; }
+[data-theme='light'] .about-character > .mascot-image { filter: drop-shadow(0 10px 20px #18345626); }
+[data-theme='light'] .about-thought { background: #fff5e9; color: var(--orange-ink); }
+[data-theme='light'] .about-circuit circle { fill: var(--bg); }
+[data-theme='light'] .about-values { background: linear-gradient(115deg, #eef6ff, #ffffff 70%); border-color: var(--border); }
+[data-theme='light'] .about-value { border-color: var(--border); }
+[data-theme='light'] .client-preview-screen { box-shadow: 0 10px 25px #17304e26, 0 0 16px #1687ff20; }
+[data-theme='light'] :is(.work-card, .work-workshops, .gallery-channels .contribution-node) { background: var(--bg); }
+[data-theme='light'] .work-card { --neon-ink: var(--blue-ink); }
+[data-theme='light'] .work-workshops { --neon-ink: var(--orange-ink); }
+[data-theme='light'] .work-card-copy h3 span { color: var(--neon-ink); }
+[data-theme='light'] .contribution-node { --neon-ink: var(--green-ink); }
+[data-theme='light'] .node-02 { --neon-ink: var(--orange-ink); }
+[data-theme='light'] .node-03 { --neon-ink: var(--pink-ink); }
+[data-theme='light'] :is(.click-cue, .gallery-channels .node-label, .node-open-badge,
+  .node-active .node-title, .contribution-trigger:hover .node-title) { color: var(--neon-ink); }
+[data-theme='light'] .work-card-top { border-color: var(--border); }
+[data-theme='light'] :is(.work-invitations .work-card, .gallery-channels .contribution-trigger):focus-visible { outline-color: var(--blue-ink); }
+[data-theme='light'] .achievement-card { background: linear-gradient(90deg, #f4f8fc, #ffffffb8); border-color: var(--border); }
+[data-theme='light'] .celebration-art > .mono { background: #f4ffe9; color: var(--green-ink); }
+[data-theme='light'] :is(.build-log, .crew-list, .member-card, .gallery-open-hint) { border-color: var(--border); }
+[data-theme='light'] .member-card { background: #fffffff0; }
+[data-theme='light'] :is(.node-preview, .event-gallery-window) { background: radial-gradient(ellipse at center, #edf4ff, #f8fafc); }
+[data-theme='light'] .node-preview-caption { background: var(--panel); color: var(--muted); }
+[data-theme='light'] .node-open-badge { background: #ffffffef; box-shadow: 0 0 12px #17304e15; }
+
+/* Open galleries, forms, and dialogs follow the selected mode as well. */
+[data-theme='light'] .contribution-detail { background: var(--bg); --detail-ink: var(--green-ink); }
+[data-theme='light'] .detail-initiatives { --detail-ink: var(--orange-ink); }
+[data-theme='light'] .detail-engagements { --detail-ink: var(--pink-ink); }
+[data-theme='light'] .contribution-detail-top { color: var(--detail-ink); border-color: var(--border); }
+[data-theme='light'] :is(.project-selector, .project-selector button) { border-color: var(--border); }
+[data-theme='light'] .project-selector button { background: var(--panel); }
+[data-theme='light'] .project-selector button[aria-pressed='true'],
+[data-theme='light'] .project-selector button:hover { background: #f0fbdf; color: var(--green-ink); }
+[data-theme='light'] .project-stack li { background: #edf5ff; border-color: #bdd7f3; color: var(--blue-ink); }
+[data-theme='light'] .project-description .project-highlight { border-color: var(--border); }
+[data-theme='light'] .carousel-controls button { background: #f4fbe9; }
+[data-theme='light'] :is(.initiative-record > img, .event-gallery) { background: var(--panel); }
+[data-theme='light'] .event-gallery-controls button:hover { color: var(--pink-ink); background: #ff49c813; }
+[data-theme='light'] .enquiry-form { background: var(--bg); }
+[data-theme='light'] :is(.form-heading, .delivery-note, .contact-topics) { border-color: var(--border); }
+[data-theme='light'] .form-field :is(input, select, textarea, select option) { background: #f8fafc; color: var(--text); border-color: #aebcca; }
+[data-theme='light'] .form-field :is(input, textarea)::placeholder,
+[data-theme='light'] .form-field select:has(option[value='']:checked) { color: var(--muted); }
+[data-theme='light'] .form-field :is(input, select, textarea):focus { border-color: var(--green-ink); }
+[data-theme='light'] .form-field [aria-invalid='true'] { border-color: var(--orange-ink); }
+[data-theme='light'] .field-error { color: #ad350a; }
+[data-theme='light'] .form-status { background: #fff6e7; border-color: #b67d30; }
+[data-theme='light'] .status-success { background: #effade; border-color: #6c912f; }
+[data-theme='light'] .modal { background: var(--bg); }
+[data-theme='light'] .modal::backdrop { background: #15233f80; }
+[data-theme='light'] .modal-close { background: var(--panel); }

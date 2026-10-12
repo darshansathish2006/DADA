@@ -10,6 +10,12 @@ import SignalField from './components/SignalField';
 export default function App() {
   const [modal, setModal] = useState(null);
   const [enquiryType, setEnquiryType] = useState(null);
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#ffffff' : '#030405';
+    try { localStorage.setItem('dada-theme', theme); } catch { /* Storage is optional. */ }
+  }, [theme]);
   const [paused, setPaused] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -33,5 +39,5 @@ export default function App() {
       document.getElementById('enquiry-name')?.focus({ preventScroll: true });
     });
   }
-  return <div className={`site-shell ${paused ? 'motion-paused' : ''}`}><SignalField paused={paused} /><a href="#main" className="skip-link">Skip to content</a><Navbar /><main id="main"><Hero onMascot={() => setModal('mascot')} /><AboutSection onMascot={() => setModal('mascot')} /><WhatWeDoSection onDestination={setModal} /><ExploreWorkSection onDestination={setModal} /><AchievementsSection /><ContributionsSection motionPaused={paused} /><TeamSection /><Contact enquiryType={enquiryType} /></main><Footer onDestination={setModal} onMascot={() => setModal('mascot')} paused={paused} onToggleMotion={() => setPaused(value => !value)} /><Modal modal={modal} onClose={() => setModal(null)} onEnquire={enquire} /></div>;
+  return <div className={`site-shell ${paused ? 'motion-paused' : ''}`}><SignalField paused={paused} /><a href="#main" className="skip-link">Skip to content</a><Navbar theme={theme} onToggleTheme={() => setTheme(value => value === 'dark' ? 'light' : 'dark')} /><main id="main"><Hero onMascot={() => setModal('mascot')} /><AboutSection onMascot={() => setModal('mascot')} /><WhatWeDoSection onDestination={setModal} /><ExploreWorkSection onDestination={setModal} /><AchievementsSection /><ContributionsSection motionPaused={paused} /><TeamSection /><Contact enquiryType={enquiryType} /></main><Footer onDestination={setModal} onMascot={() => setModal('mascot')} paused={paused} onToggleMotion={() => setPaused(value => !value)} /><Modal modal={modal} onClose={() => setModal(null)} onEnquire={enquire} /></div>;
 }
