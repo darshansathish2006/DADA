@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from '@/lib/navigation';
+import { Image, Link } from '@/lib/navigation';
 import { sitePath } from '../../../site-paths';
 import { Menu, X } from 'lucide-react';
 import { bookingHref, siteConfig } from '@/data/site-config';
 import Button from '@/components/ui/Button';
+import { publicPath } from '@/lib/paths';
 
 /** Sticky, compact navigation with a simple disclosure menu on small screens. */
 export default function Navigation() {
@@ -27,15 +28,22 @@ export default function Navigation() {
       <nav aria-label="Primary" className="wrap flex h-16 items-center justify-between gap-6">
         <Link
           href="/"
-          className="flex items-center gap-2 font-heading text-body font-bold uppercase tracking-tight"
+          className="flex shrink-0 items-center"
           aria-label={`${siteConfig.name} — home`}
           onClick={() => setOpen(false)}
         >
-          <img src={sitePath('/assets/branding/dada-logo-blue.png')} alt="DADA" className="consultancy-logo" />
-          <span className="text-small normal-case">Consultancy</span>
+          <Image
+            src={publicPath('/branding/dada-logo-blue.png')}
+            alt="DADA"
+            width={1536}
+            height={1024}
+            sizes="(min-width: 768px) 105px, 86px"
+            className="h-[51px] w-[86px] object-contain md:h-[61px] md:w-[105px]"
+            preload
+          />
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 lg:flex">
           <li><a href={sitePath('/')} className="text-small text-muted hover:text-fg">← Team DADA</a></li>
           {siteConfig.nav.map((item) => (
             <li key={item.href}>
@@ -47,13 +55,13 @@ export default function Navigation() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <div className="hidden md:block"><Button href={bookingHref} size="sm">
+          <Button href={bookingHref} size="sm" className="hidden lg:inline-flex">
             Book a call
-          </Button></div>
+          </Button>
           <button
             ref={toggle}
             type="button"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong md:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -65,7 +73,7 @@ export default function Navigation() {
       </nav>
 
       {open ? (
-        <div id="mobile-menu" className="border-t border-line bg-bg md:hidden">
+        <div id="mobile-menu" className="border-t border-line bg-bg lg:hidden">
           <ul className="wrap flex flex-col py-2">
             <li className="border-b border-line"><a href={sitePath('/')} className="block py-4 font-heading text-h3 font-bold">← Team DADA</a></li>
             {siteConfig.nav.map((item) => (

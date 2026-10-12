@@ -39,5 +39,9 @@ export default defineConfig({
   esbuild: { jsx: 'automatic' },
   plugins: [tailwindcss(), consultancyPages()],
   resolve: { alias: { '@': resolve(root, 'src/consultancy') } },
-  build: { rollupOptions: { input: { main: resolve(root, 'index.html'), consultancy: resolve(root, 'consultancy/index.html') } } },
+  build: { rollupOptions: { input: {
+    main: resolve(root, 'index.html'),
+    consultancy: resolve(root, 'consultancy/index.html'),
+    workshop: resolve(root, 'workshop/index.html'),
+  } } },
 });

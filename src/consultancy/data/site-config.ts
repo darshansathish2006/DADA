@@ -2,20 +2,21 @@
 export const siteConfig = {
   name: 'Team DADA',
   legalName: 'Team DADA',
-  tagline: 'Websites, tech & AI consulting',
-  description: 'Team DADA designs websites and consults on tech and AI for businesses and professionals.',
+  tagline: 'Website consultancy, design and development',
+  description: 'Team DADA helps businesses and professionals plan, design and build websites, from brand sites and portfolios to catalogues and enquiry integrations.',
   location: 'Chennai, India',
   email: 'teamdadaoffl@gmail.com',
   booking: '',
-  availability: 'Taking new projects and consultancy enquiries.',
+  availability: 'Open for consultancy projects.',
   nav: [
     { label: 'Work', href: '/#work' },
     { label: 'Services', href: '/#services' },
-    { label: 'Process', href: '/#process' },
+    { label: 'Our approach', href: '/#approach' },
+    { label: 'Team', href: '/#team' },
     { label: 'Contact', href: '/#contact' },
   ],
   contactForm: {
-    enquiryTypes: ['Website', 'Consultation', 'Other'],
+    enquiryTypes: ['Business website', 'Professional portfolio', 'Product catalogue', 'Website consultation', 'Other'],
     budgets: ['Not sure yet', 'Under ₹50k', '₹50k – ₹1.5L', '₹1.5L – ₹5L', '₹5L and above'],
     timelines: ['As soon as possible', 'Within a month', '1–3 months', 'Flexible'],
   },
@@ -31,5 +32,5 @@ export const phoneLinks = [
 ];
 export const whatsappLinks = phoneLinks.map(phone => ({
   ...phone,
-  href: `https://wa.me/${phone.number.slice(1)}?text=${encodeURIComponent('Hi Team DADA! I would like to talk about a project.')}`,
+  href: `https://wa.me/${phone.number.slice(1)}?text=${encodeURIComponent('Hi Team DADA! I would like to discuss a website consultancy project.')}`,
 }));

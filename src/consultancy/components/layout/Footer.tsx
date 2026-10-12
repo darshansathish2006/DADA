@@ -1,8 +1,9 @@
 import { Link } from '@/lib/navigation';
 import { sitePath } from '../../../site-paths';
 import { ArrowUp } from 'lucide-react';
-import { hasEmail, phoneLinks, siteConfig, socialLinks, whatsappLinks } from '@/data/site-config';
+import { hasEmail, siteConfig, socialLinks } from '@/data/site-config';
 import Todo from '@/components/ui/Todo';
+import ContactNumbers from '@/components/ui/ContactNumbers';
 
 /** Compact footer: logo, one-line description, links, email, socials and copyright. */
 export default function Footer() {
@@ -46,27 +47,7 @@ export default function Footer() {
                 <Todo>team email</Todo>
               )}
             </li>
-            {phoneLinks.map((phone) => (
-              <li key={`call-${phone.number}`}>
-                <a href={phone.href} className="text-fg hover:underline">
-                  {phone.display}
-                  <span className="sr-only"> (call)</span>
-                </a>
-              </li>
-            ))}
-            {whatsappLinks.map((chat) => (
-              <li key={`wa-${chat.number}`}>
-                <a
-                  href={chat.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted transition-colors hover:text-fg"
-                >
-                  WhatsApp: {chat.display}
-                  <span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </li>
-            ))}
+            <li><ContactNumbers compact /></li>
             {socialLinks.map((social) => (
               <li key={social.key}>
                 <a

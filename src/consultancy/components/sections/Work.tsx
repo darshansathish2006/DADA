@@ -1,6 +1,6 @@
 import { Link } from '@/lib/navigation';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { projectStats, projects, type Project } from '@/data/projects';
+import { projects, type Project } from '@/data/projects';
 import { reveal } from '@/lib/reveal';
 import Section from '@/components/ui/Section';
 import SectionHeader from '@/components/ui/SectionHeader';
@@ -9,15 +9,15 @@ import Tag from '@/components/ui/Tag';
 import Todo from '@/components/ui/Todo';
 import WorkedOnBy from '@/components/ui/WorkedOnBy';
 
-/** Selected work: a card grid of every completed project, then a muted "in progress" row. */
+/** Show only the five documented consultancy projects. */
 export default function Work() {
   return (
     <Section id="work" tone="light" labelledBy="work-heading">
       <SectionHeader
         id="work-heading"
-        eyebrow="Selected work"
-        title="Websites built for real clients"
-        intro="Selected client work in construction, interiors, fashion, healthcare and medicine."
+        eyebrow="Consultancy projects"
+        title="Five projects. Five different needs."
+        intro="Explore the brief, design decisions, technology and work behind each website, across construction, interiors, fashion, healthcare and medicine."
       />
 
       <ul className="grid gap-x-8 gap-y-12 md:grid-cols-2">
@@ -27,8 +27,6 @@ export default function Work() {
           </li>
         ))}
       </ul>
-
-      <InProgress />
     </Section>
   );
 }
@@ -87,17 +85,5 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
       </div>
     </article>
-  );
-}
-
-function InProgress() {
-  return (
-    <div className="mt-16 border-t border-line pt-10 md:mt-20" {...reveal()}>
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-h3">In progress</h3>
-        <p className="text-small text-muted">{projectStats.ongoing} projects currently being built</p>
-      </div>
-      <p className="mt-4 max-w-xl text-small text-muted">More client work is on the way. Explore the case studies above, or tell us what you have in mind.</p>
-    </div>
   );
 }

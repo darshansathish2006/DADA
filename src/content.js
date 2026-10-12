@@ -5,7 +5,7 @@ import { technicalInitiatives } from './portfolio';
 export const siteConfig = {
   fullName: 'Developers Advancing Dreams & Aspirations',
   consultancyUrl: import.meta.env.VITE_CONSULTANCY_URL || '/consultancy/',
-  workshopsUrl: import.meta.env.VITE_WORKSHOPS_URL || '',
+  workshopsUrl: import.meta.env.VITE_WORKSHOPS_URL || '/workshop/',
   enquiryEndpoint: import.meta.env.VITE_ENQUIRY_ENDPOINT || '',
   mascot: sitePath('/assets/mascot/dada-mature-pointing.png'),
   // Add verified URLs here. Empty entries are displayed as unavailable, never fake links.

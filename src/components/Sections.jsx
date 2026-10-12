@@ -27,11 +27,11 @@ export function WhatWeDoSection({ onDestination }) {
     <Chapter number="03">FOUR CHANNELS. ONE COLLECTIVE.</Chapter>
     <div className="services-intro reveal"><h2>FIND YOUR<br /><span className="green-text">CHANNEL.</span></h2><p>Pick a direction.<br />We'll bring the curiosity,<br />the code, and the crew.</p><div className="spectrum" aria-hidden="true">{Array.from({ length: 32 }, (_, i) => <i key={i} style={{ '--bar': `${22 + ((i * 37) % 78)}%`, '--delay': `${i * -.12}s` }} />)}</div></div>
     <div className="channel-list">{services.map((service, index) => {
-      const isConsultancy = service.destination === 'consultancy';
-      const heading = <><span className="channel-number mono">CH / {service.number}</span><h3>{service.title}</h3><span className="channel-tag mono">{service.tag}</span><span className="channel-symbol" aria-hidden="true">{isConsultancy ? '↗' : active === index ? '−' : '+'}</span></>;
+      const isDestination = Boolean(service.destination);
+      const heading = <><span className="channel-number mono">CH / {service.number}</span><h3>{service.title}</h3><span className="channel-tag mono">{service.tag}</span><span className="channel-symbol" aria-hidden="true">{isDestination ? '↗' : active === index ? '−' : '+'}</span></>;
       return <article key={service.number} className={`service-channel channel-${index + 1} ${active === index ? 'is-active' : ''}`}>
-        {isConsultancy ? <DestinationLink destination="consultancy" onDestination={onDestination} className="channel-heading">{heading}</DestinationLink> : <button className="channel-heading" type="button" onClick={() => setActive(index)} aria-expanded={active === index} aria-controls={`channel-panel-${index}`}>{heading}</button>}
-        {!isConsultancy && <div className="channel-panel" id={`channel-panel-${index}`} hidden={active !== index}><Icon name={service.icon} size={32} /><p>{service.text}</p>{service.destination ? <DestinationLink destination={service.destination} onDestination={onDestination} className="channel-link">Explore {service.destination}<Icon name="arrow" size={20} /></DestinationLink> : <a className="channel-link" href={service.target}>Take a closer look<Icon name="arrow" size={20} /></a>}<WaveTrace /></div>}
+        {isDestination ? <DestinationLink destination={service.destination} onDestination={onDestination} className="channel-heading">{heading}</DestinationLink> : <button className="channel-heading" type="button" onClick={() => setActive(index)} aria-expanded={active === index} aria-controls={`channel-panel-${index}`}>{heading}</button>}
+        {!isDestination && <div className="channel-panel" id={`channel-panel-${index}`} hidden={active !== index}><Icon name={service.icon} size={32} /><p>{service.text}</p><a className="channel-link" href={service.target}>Take a closer look<Icon name="arrow" size={20} /></a><WaveTrace /></div>}
       </article>;
     })}</div>
   </div></section>;
@@ -49,10 +49,10 @@ export function ExploreWorkSection({ onDestination }) {
         <div className="work-card-link"><span>Explore our work & start a project<small>OPEN CONSULTANCY PORTFOLIO</small></span><Icon name="arrow" size={28} /></div>
       </DestinationLink>
       <DestinationLink destination="workshops" onDestination={onDestination} className="work-card work-workshops reveal" aria-label="Need a workshop to be conducted? Plan a workshop with DADA.">
-        <div className="work-card-top mono"><span>02 / DADA WORKSHOPS</span><span className="click-cue"><Icon name="pointer" size={14} /> CLICK TO ENQUIRE</span></div>
+        <div className="work-card-top mono"><span>02 / DADA WORKSHOPS</span><span className="click-cue"><Icon name="pointer" size={14} /> CLICK TO EXPLORE</span></div>
         <div className="work-card-copy"><h3>Need a workshop<br /><span>to be conducted?</span></h3><p>Bring hands-on learning to your campus or team. Tell us the topic, audience, and date you have in mind.</p></div>
         <div className="workshop-art"><span className="workshop-word" aria-hidden="true">LEARN.<br />MAKE.</span><MascotImage pose="laptop" loading="lazy" decorative /><span className="workshop-caption mono">LESS THEORY. MORE “I BUILT THIS.”</span><span className="workshop-topic"><Icon name="terminal" size={17} /> CODE. TRY. REPEAT.</span></div>
-        <div className="work-card-link"><span>Let's plan your workshop<small>OPEN WORKSHOP ENQUIRY</small></span><Icon name="arrow" size={28} /></div>
+        <div className="work-card-link"><span>Let's plan your workshop<small>EXPLORE WORKSHOPS & ACTIVITIES</small></span><Icon name="arrow" size={28} /></div>
       </DestinationLink>
     </div>
   </div></section>;

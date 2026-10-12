@@ -12,8 +12,8 @@ export function Link({ href = '', ...props }: AnchorHTMLAttributes<HTMLAnchorEle
   return <a href={portfolioHref(href)} {...props} />;
 }
 
-type ImageProps = ImgHTMLAttributes<HTMLImageElement> & { priority?: boolean; quality?: number };
-export function Image({ src = '', priority = false, quality: _quality, ...props }: ImageProps) {
+type ImageProps = ImgHTMLAttributes<HTMLImageElement> & { priority?: boolean; preload?: boolean; quality?: number };
+export function Image({ src = '', priority = false, preload = false, quality: _quality, ...props }: ImageProps) {
   return <img {...props} src={sitePath(src.startsWith('/projects/') ? `/consultancy${src}` : src)}
-    loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'} decoding="async" />;
+    loading={priority || preload ? 'eager' : 'lazy'} fetchPriority={priority || preload ? 'high' : 'auto'} decoding="async" />;
 }

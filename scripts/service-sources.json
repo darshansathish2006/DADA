@@ -1,0 +1,26 @@
+{
+  "workshop": {
+    "repository": "https://github.com/Andryandurai/DADA-Workshop.git",
+    "commit": "15f7930e0be814989290e5a8d1240f3ae873d6f8",
+    "route": "/workshop/",
+    "source": "src/workshop",
+    "adaptations": [
+      "Use shared branding, mascot, team and font assets with deployment-base-aware paths.",
+      "Return main-site links to the current deployment.",
+      "Remove +91 99448 52361; list remaining numbers under Call / WhatsApp with both actions.",
+      "Use VITE_WORKSHOP_ENQUIRY_ENDPOINT independently of the main site's different payload schema."
+    ]
+  },
+  "consultancy": {
+    "repository": "https://github.com/Andryandurai/DADA-Portfolio.git",
+    "commit": "6f18e5b0111bab9c457d5a6e2240a54c005120a8",
+    "route": "/consultancy/",
+    "source": "src/consultancy",
+    "adaptations": [
+      "Adapt Next.js links and images to the existing React/Vite static build.",
+      "Keep deployment-base-aware case-study pages, assets and main-site return links.",
+      "Keep the local email preparation form and supplied public contact settings.",
+      "Group contact numbers under Call / WhatsApp in the contact section and footer."
+    ]
+  }
+}

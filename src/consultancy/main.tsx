@@ -7,7 +7,7 @@ import Hero from './components/sections/Hero';
 import ClientStrip from './components/sections/ClientStrip';
 import Services from './components/sections/Services';
 import Work from './components/sections/Work';
-import Process from './components/sections/Process';
+import Team from './components/sections/Team';
 import Testimonials from './components/sections/Testimonials';
 import Contact from './components/sections/Contact';
 import CaseStudy from './CaseStudy';
@@ -19,6 +19,6 @@ const slug = path.match(/^\/consultancy\/work\/([^/]+)\/?$/)?.[1];
 createRoot(document.getElementById('root')!).render(<StrictMode>
   <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-5 focus:py-3 focus:text-ink">Skip to content</a>
   <Navigation />
-  <main id="main">{slug ? <CaseStudy slug={slug} /> : <><Hero /><ClientStrip /><Services /><Work /><Process /><Testimonials /><Contact /></>}</main>
+  <main id="main">{slug ? <CaseStudy slug={slug} /> : <><Hero /><Services /><ClientStrip /><Work /><Team /><Testimonials /><Contact /></>}</main>
   <Footer /><RevealController />
 </StrictMode>);
