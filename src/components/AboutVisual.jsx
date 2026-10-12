@@ -13,8 +13,8 @@ export default function AboutVisual({ onMascot }) {
     </svg>
     <span className="about-visual-note mono"><i className="status-dot" /> IDEAS BECOME REAL HERE</span>
     <figure className="about-team-shot">
-      <img src={sitePath('/assets/events/ainexus-stall.jpg')} alt="The DADA team with students and faculty at the AI Nexus expo" loading="lazy" width="1200" height="675" />
-      <figcaption><span className="mono">01 / OUT IN THE WORLD</span><span>AI Nexus · REC</span></figcaption>
+      <img src={sitePath('/assets/events/click-launch.jpg')} alt="The DADA team and faculty at the CLICK platform launch" loading="lazy" width="1200" height="675" />
+      <figcaption><span className="mono">01 / OUT IN THE WORLD</span><span>CLICK Launch · REC</span></figcaption>
     </figure>
     <figure className="about-project-shot">
       <div className="about-window-bar mono"><span><i /><i /><i /></span>CLICK / BUILT BY DADA<Icon name="code" size={15} /></div>
