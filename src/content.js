@@ -52,9 +52,9 @@ export const achievements = technicalInitiatives.filter(item => item.result === 
 }));
 
 export const contributions = [
-  { id: 'projects', number: '01', icon: 'code', title: 'Projects', text: 'EchoSenseAI, SEVPS, CLICK, and ACADEMIC WDB. Four ideas built into working experiences.', action: 'EXPLORE 04 PROJECTS' },
-  { id: 'initiatives', number: '02', icon: 'trophy', title: 'Technical Initiatives', text: 'From the first prototype to the final pitch. Our hackathon wins and finalist experiences.', action: '03 WINS / 01 FINALIST' },
-  { id: 'engagements', number: '03', icon: 'mic', title: 'Engagements & Sessions', text: 'Sharing what we learn through an AI expo, a guest session, and a hands-on product launch.', action: 'EXPLORE 03 SESSIONS' },
+  { id: 'projects', number: '01', icon: 'code', title: 'Projects', text: 'EchoSenseAI, SEVPS, CLICK, and ACADEMIC WDB. Four ideas built into working experiences.', meta: '04 PROJECTS', action: 'Open projects' },
+  { id: 'initiatives', number: '02', icon: 'trophy', title: 'Technical Initiatives', text: 'From the first prototype to the final pitch. Our hackathon wins and finalist experiences.', meta: '03 WINS / 01 FINALIST', action: 'View wins & participation' },
+  { id: 'engagements', number: '03', icon: 'mic', title: 'Engagements & Sessions', text: 'Explore our AI expo, hackathon awareness session, and hands-on CLICK launch.', meta: '03 SESSIONS', action: 'Open sessions & photos' },
 ];
 
 // The four members selected by the user, in their requested order.

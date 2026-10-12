@@ -1,0 +1,115 @@
+/* Real work and people give the About section a visual centre of gravity. */
+.about-layout { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 55px; }
+.about-story { position: relative; z-index: 2; min-width: 0; }
+.about-story > .micro-label { color: #8cb5e7; font-size: 8px; }
+.about-story h2 { font-size: clamp(65px, 6.1vw, 88px); margin-top: 21px; line-height: .94; }
+.about-story > p:not(.micro-label) { max-width: 420px; color: #b0bac7; font-size: 13px; line-height: 1.9; margin-top: 25px; }
+.about-build-loop { display: flex; align-items: center; gap: 13px; padding-top: 24px; color: #bac9d9; font-size: 7px; }
+.about-build-loop svg { color: var(--orange); }
+.about-build-loop > span:last-child { color: var(--green); }
+.about-visual { position: relative; min-width: 0; aspect-ratio: 1.1; isolation: isolate; }
+.about-visual-grid { position: absolute; inset: 0 -3%; z-index: -2; background: radial-gradient(ellipse at 55% 45%, #1687ff26, transparent 68%), repeating-linear-gradient(0deg, transparent 0 31px, #4b93df12 31px 32px), repeating-linear-gradient(90deg, transparent 0 31px, #4b93df12 31px 32px); mask-image: radial-gradient(ellipse, black 30%, transparent 73%); }
+.about-circuit { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--blue); z-index: -1; }
+.about-circuit .circuit-line { stroke: #1687ff50; stroke-width: 1; }
+.about-circuit .circuit-pulse { stroke: var(--blue); stroke-width: 2; stroke-dasharray: 18 130; filter: drop-shadow(0 0 5px #1687ff); animation: circuit-flow 16s linear infinite; }
+.about-circuit circle { fill: #030405; stroke: var(--blue); stroke-width: 2; }
+.about-circuit .circuit-wave { stroke: var(--green); stroke-width: 2; filter: drop-shadow(0 0 5px #b1ff3980); }
+.about-visual-note { position: absolute; top: 0; left: 6%; display: flex; align-items: center; gap: 11px; color: #9cbfe8; font-size: 7px; }
+.about-team-shot { position: absolute; top: 9%; left: 3%; width: 82%; transform: rotate(3deg); border: 1px solid var(--blue); background: #09111d; box-shadow: 0 0 6px #1687ff70, 0 0 35px #1687ff25; }
+.about-team-shot > img { width: 100%; height: auto; }
+.about-team-shot figcaption { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 13px; font-size: 10px; color: #c0c9d6; }
+.about-team-shot figcaption .mono { color: #81baff; font-size: 6px; }
+.about-project-shot { position: absolute; width: 66%; bottom: 8%; left: 0; transform: rotate(-5deg); border: 1px solid var(--orange); background: #080d14; box-shadow: 0 0 7px #ff742b40, 0 18px 35px #000b; }
+.about-window-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; background: #0c111b; color: #adc4df; font-size: 6px; border-bottom: 1px solid #2b3d54; }
+.about-window-bar > span { display: flex; gap: 4px; }
+.about-window-bar i { width: 4px; height: 4px; background: #58749a; border-radius: 50%; }
+.about-window-bar i:first-child { background: var(--orange); }
+.about-project-shot > img { width: 100%; height: auto; aspect-ratio: 16/10; object-fit: contain; }
+.about-project-shot figcaption { display: flex; align-items: center; gap: 7px; padding: 8px 10px; color: #ffb786; font-size: 5px; }
+.about-character { position: absolute; right: -4%; bottom: 0; height: 64%; width: 38%; background: transparent; padding: 0; z-index: 3; }
+.about-character > .mascot-image { width: 100%; height: 100%; filter: drop-shadow(0 10px 20px #000c); transition: translate .25s; }
+.about-character:hover > .mascot-image { translate: 0 -6px; }
+.about-thought { display: flex; align-items: center; gap: 8px; position: absolute; top: -4%; right: 6%; transform: rotate(7deg); padding: 7px 11px; color: #ffc293; background: #1b1009; border: 1px solid var(--orange); box-shadow: 0 0 14px #ff742b35; font-size: 7px; }
+.about-character-action { position: absolute; bottom: 0; left: 2%; right: 0; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 4px; font-size: 9px; font-weight: 600; color: #bcdcff; background: #071321ef; border: 1px solid #3c79b8; }
+.about-coordinate { position: absolute; left: 4%; bottom: 0; color: #7c96b4; font-size: 6px; }
+.about-values { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 64px; border-block: 1px solid #294059; background: linear-gradient(115deg, #07101b, #050608 70%); }
+.about-value { --value-color: var(--blue); padding: 25px 24px; border-right: 1px solid #203146; min-width: 0; }
+.about-value:last-child { border-right: 0; }.value-2 { --value-color: var(--orange); }.value-3 { --value-color: var(--green); }.value-4 { --value-color: var(--pink); }
+.about-value-symbol { position: relative; display: flex; align-items: center; gap: 13px; color: var(--value-color); padding-bottom: 18px; }
+.about-value-symbol > svg { padding: 10px; box-sizing: content-box; background: color-mix(in srgb, var(--value-color) 9%, transparent); border: 1px solid color-mix(in srgb, var(--value-color) 35%, transparent); }
+.about-value-symbol > .mono { font-size: 9px; }.about-value-symbol > i { height: 1px; flex: 1; background: linear-gradient(90deg, var(--value-color), transparent); box-shadow: 0 0 5px color-mix(in srgb, var(--value-color) 30%, transparent); }
+.about-value h3 { font-size: 14px; font-weight: 650; margin-bottom: 9px; }
+.about-value p { font-size: 11px; line-height: 1.85; color: #a0adbd; }
+@keyframes circuit-flow { to { stroke-dashoffset: -592; } }
+
+/* Invitations have visible, button-like actions even before hover. */
+.section-open-hint { display: flex; align-items: center; gap: 14px; color: #acb5c1; font-size: 11px; }
+.section-open-hint > svg { color: var(--pink); }.section-open-hint strong { display: block; color: #f3f3ed; font-size: 13px; }
+.work-invitations { grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
+.work-invitations .work-card { display: flex; flex-direction: column; margin: 0; width: 100%; }
+.work-invitations .work-card-top { padding: 17px 24px; font-size: 7px; align-items: center; }
+.click-cue { display: inline-flex; align-items: center; gap: 7px; color: var(--neon); white-space: nowrap; }
+.work-invitations .work-card-copy { padding: 28px 30px 18px; }
+.work-invitations .work-card-copy h3 { margin-top: 0; font-size: clamp(36px, 3.55vw, 51px); line-height: 1.04; }
+.work-invitations .work-card-copy > p { max-width: 390px; font-size: 12px; color: #b3bdcb; margin-top: 18px; }
+.client-work-preview { position: relative; min-height: 0; flex: none; aspect-ratio: 1.55; margin: 0 20px 20px; background: radial-gradient(ellipse at center, #1687ff1c, transparent 70%); }
+.client-preview-screen { position: absolute; width: 71%; top: 5%; left: 3%; transform: rotate(-5deg); border: 1px solid #558cd1; background: #0a111c; box-shadow: 0 10px 25px #000b, 0 0 16px #1687ff20; }
+.client-preview-screen > img { width: 100%; height: auto; }
+.client-preview-screen.preview-second { width: 54%; top: 25%; left: auto; right: 2%; transform: rotate(4deg); border-color: #8c58c0; }
+.client-preview-caption { position: absolute; bottom: 0; left: 12px; font-size: 6px; color: #8cb3e3; }
+.work-invitations .workshop-art { height: 280px; flex: 1; min-height: 280px; border: 0; background: radial-gradient(ellipse at 70% 70%, #1687ff20, transparent 65%); }
+.work-invitations .workshop-word { top: 38px; left: 30px; font-size: 97px; -webkit-text-stroke-color: #da763b70; }
+.work-invitations .workshop-art .mascot-image { height: 94%; max-height: 360px; width: 46%; right: 22px; top: auto; bottom: 12px; }
+.work-invitations .workshop-caption { bottom: 21px; left: 30px; font-size: 6px; }
+.workshop-topic { position: absolute; left: 34px; top: 13px; display: flex; align-items: center; gap: 9px; font: 400 7px/1.4 var(--font-mono); color: #d8a989; }
+.work-invitations .work-card-link { position: relative; z-index: 4; background: var(--neon); border: 0; color: #040709; min-height: 82px; padding: 19px 24px; font-size: 14px; font-weight: 750; gap: 16px; }
+.work-invitations .work-card-link small { display: block; font: 400 7px/1.7 var(--font-mono); letter-spacing: .07em; margin-top: 4px; opacity: .8; }
+.work-invitations .work-card-link > svg { padding: 8px; box-sizing: content-box; border: 1px solid #04070950; transition: transform .2s; }
+.work-invitations .work-card:hover .work-card-link > svg { transform: translate(3px, -3px); }
+.work-invitations .work-card:focus-visible { outline: 2px solid white; outline-offset: 6px; }
+
+/* Preview images, an opening cue, and a contrasting action expose the galleries. */
+.gallery-open-hint { display: flex; align-items: center; gap: 13px; color: #aab4c1; font-size: 12px; margin-top: 30px; padding: 15px 0; border-bottom: 1px solid #293645; }
+.gallery-open-hint > svg { color: var(--green); }.gallery-open-hint strong { color: #f0f2ed; margin-right: 7px; }
+.gallery-channels { gap: 24px; margin-top: 25px; padding-bottom: 30px; align-items: stretch; }
+.gallery-channels .contribution-node { margin: 0; border: 1px solid var(--neon); background: #080c11; box-shadow: 0 0 3px color-mix(in srgb, var(--neon) 65%, transparent), 0 0 22px color-mix(in srgb, var(--neon) 12%, transparent); }
+.gallery-channels .contribution-node::before, .gallery-channels .contribution-node::after { display: none; }
+.gallery-channels .contribution-trigger { display: flex; flex-direction: column; padding: 0; height: 100%; }
+.node-preview { display: block; width: 100%; aspect-ratio: 16/10; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, #1c2b3a, #080b10); border-bottom: 1px solid color-mix(in srgb, var(--neon) 40%, transparent); }
+.node-preview > img { width: 100%; height: 100%; padding-bottom: 27px; object-fit: contain; transition: filter .2s; }
+.node-preview-caption { position: absolute; inset: auto 0 0; padding: 7px 12px; font-size: 6px; text-transform: uppercase; color: #c0cbd8; background: #080c11; }
+.node-open-badge { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; gap: 6px; padding: 7px 9px; background: #040608ef; color: var(--neon); border: 1px solid var(--neon); font-size: 7px; box-shadow: 0 0 12px #0009; }
+.node-copy { display: block; flex: 1; padding: 21px; }
+.gallery-channels .node-label { color: var(--neon); font-size: 7px; }
+.gallery-channels .node-title { font-size: 35px; margin-top: 15px; min-height: 1.06em; max-width: 100%; }
+.gallery-channels .node-description { font-size: 12px; margin-top: 13px; }
+.gallery-channels .node-action { margin: 0; padding: 17px 20px; width: 100%; min-height: 58px; font-size: 12px; font-weight: 750; color: #050807; background: var(--neon); }
+.gallery-channels .node-active { box-shadow: 0 0 7px var(--neon), 0 0 25px color-mix(in srgb, var(--neon) 22%, transparent); }
+.gallery-channels .node-active .node-action svg { transform: none; }
+.gallery-channels .contribution-trigger:hover .node-action svg { transform: translateY(3px); }
+.gallery-channels .contribution-trigger:focus-visible { outline: 2px solid white; outline-offset: 6px; }
+
+@media (max-width: 1099px) {
+  .about-layout { gap: 30px; grid-template-columns: .8fr 1.2fr; }.about-story h2 { font-size: 68px; }.about-story > p:not(.micro-label) { font-size: 12px; }.about-build-loop { flex-wrap: wrap; gap: 9px; font-size: 6px; }
+  .about-values { margin-top: 44px; }.about-value { padding: 21px 17px; }.about-value h3 { font-size: 12px; }.about-value p { font-size: 10px; }
+  .about-team-shot figcaption { padding: 7px; font-size: 8px; }.about-team-shot figcaption .mono { font-size: 5px; }.about-project-shot figcaption { font-size: 4px; }.about-window-bar { font-size: 5px; padding: 7px 9px; }
+  .work-invitations { gap: 25px; }.work-invitations .work-card-copy { padding: 24px 23px 15px; }.work-invitations .work-card-top { font-size: 6px; padding: 16px; }.work-invitations .work-card-copy h3 { font-size: 39px; }.work-invitations .work-card-copy > p { font-size: 11px; }
+  .client-work-preview { margin-inline: 15px; }.work-invitations .workshop-art { min-height: 235px; height: 235px; }.work-invitations .workshop-art .mascot-image { width: 46%; height: 94%; right: 0; }.work-invitations .workshop-word { font-size: 79px; left: 23px; }.work-invitations .workshop-caption { left: 23px; font-size: 5px; }.workshop-topic { left: 25px; }.work-invitations .work-card-link { font-size: 12px; padding-inline: 20px; }
+  .gallery-channels { gap: 16px; }.node-copy { padding: 17px; }.gallery-channels .node-title { font-size: 29px; }.gallery-channels .node-description { font-size: 11px; }.gallery-channels .node-action { font-size: 11px; padding-inline: 15px; }.node-open-badge { font-size: 6px; padding: 5px 7px; }.node-preview-caption { font-size: 5px; padding-inline: 8px; }
+}
+@media (max-width: 767px) {
+  .about-layout { grid-template-columns: 1fr; gap: 32px; }.about-story h2 { font-size: clamp(66px, 13vw, 92px); }.about-story > p:not(.micro-label) { font-size: 13px; max-width: 490px; }.about-story > .micro-label { font-size: 7px; }.about-build-loop { font-size: 7px; gap: 12px; }
+  .about-visual { width: min(100%, 540px); aspect-ratio: .88; justify-self: center; }.about-character { right: -1%; }.about-team-shot figcaption { font-size: 9px; }.about-coordinate { font-size: 5px; }.about-project-shot figcaption { font-size: 4px; }
+  .about-values { grid-template-columns: 1fr 1fr; margin-top: 34px; }.about-value { padding: 21px 18px; }.about-value:nth-child(2) { border-right: 0; }.about-value:nth-child(-n+2) { border-bottom: 1px solid #203146; }.about-value h3 { font-size: 13px; }.about-value p { font-size: 11px; }
+  .work-heading { align-items: flex-start; flex-direction: column; gap: 24px; }.section-open-hint { font-size: 11px; }.section-open-hint strong { font-size: 12px; }
+  .work-invitations { grid-template-columns: 1fr; gap: 30px; }.work-invitations .work-card-copy { padding: 27px 25px 14px; }.work-invitations .work-card-copy h3 { font-size: clamp(36px, 8vw, 51px); }.work-invitations .work-card-copy > p { font-size: 12px; }.work-invitations .work-card-top { padding: 16px 20px; }
+  .client-work-preview { margin: 0 20px 21px; }.client-preview-caption { bottom: 0; }
+  .work-invitations .workshop-art { height: 270px; flex: none; }.work-invitations .workshop-art .mascot-image { height: 280px; width: 200px; right: 15px; }.work-invitations .workshop-word { font-size: 95px; left: 25px; }.work-invitations .workshop-caption { font-size: 6px; }.work-invitations .work-card-link { font-size: 13px; padding: 19px 22px; }
+  .gallery-open-hint { align-items: flex-start; font-size: 11px; margin-top: 23px; }.gallery-open-hint strong { display: block; font-size: 12px; margin-bottom: 3px; }.gallery-channels { grid-template-columns: 1fr; gap: 24px; margin-top: 23px; }.gallery-channels .node-title { font-size: 37px; min-height: 0; }.node-copy { padding: 23px; }.gallery-channels .node-description { font-size: 12px; }.gallery-channels .node-label { font-size: 8px; }.gallery-channels .node-action { font-size: 13px; padding-inline: 23px; }.node-preview { aspect-ratio: 1.8; }.node-open-badge { font-size: 7px; padding: 7px 9px; }.node-preview-caption { font-size: 6px; padding: 8px 12px; }
+}
+@media (max-width: 374px) {
+  .about-story h2 { font-size: 65px; }.about-story > .micro-label { font-size: 6px; }.about-build-loop { font-size: 6px; gap: 8px; }.about-visual-note { font-size: 5px; }.about-window-bar { font-size: 4px; gap: 5px; padding: 6px; }.about-team-shot figcaption { padding: 6px; font-size: 7px; }.about-team-shot figcaption .mono { font-size: 4px; }.about-thought { font-size: 5px; gap: 5px; padding: 5px; }.about-character-action { font-size: 7px; gap: 4px; }.about-coordinate { font-size: 4px; }.about-value { padding: 18px 13px; }.about-value h3 { font-size: 12px; }.about-value-symbol { gap: 9px; }.about-value-symbol > svg { padding: 7px; }.about-value p { font-size: 10px; }
+  .work-invitations .work-card-top { font-size: 5px; padding-inline: 13px; gap: 8px; }.click-cue { gap: 4px; }.work-invitations .work-card-copy { padding-inline: 21px; }.work-invitations .work-card-copy h3 { font-size: 35px; }.work-invitations .work-card-link { padding-inline: 17px; font-size: 12px; }.work-invitations .work-card-link > svg { width: 21px; }.work-invitations .workshop-word { font-size: 83px; left: 21px; }.work-invitations .workshop-art .mascot-image { right: -16px; }.work-invitations .workshop-caption { font-size: 5px; left: 21px; }
+  .gallery-channels .node-title { font-size: 33px; }.node-copy { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .about-circuit .circuit-pulse { animation: none; }.about-character > .mascot-image { transition: none; } }

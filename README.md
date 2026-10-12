@@ -31,6 +31,7 @@ The workflow builds with `npm run build -- --base /DADA/`. Images, navigation, c
 
 - `src/content.js`: all replaceable content, mascot paths, four core-member entries, contributions, achievements, socials, and independent service destinations.
 - `src/styles.css`: theme variables, typography, layouts, breakpoints, and reduced-motion behavior.
+- `src/section-refresh.css`: the About photo composition, client/workshop invitations, and contribution gallery previews.
 - `src/components/`: navigation, hero, portfolio sections, enquiry form, footer, and accessible dialogs.
 - `src/enquiry.js`: validation and the email API submission interface.
 - `public/assets/mascot/`: five transparent blue mascot poses, mapped in `mascotPoses` in `src/content.js`. The pointing, thinking, celebrating, laptop, and waving poses appear in the hero, about, achievements, workshops, and contact sections. Original reference images and earlier variants are preserved; only the isolated blue poses render on the site.
@@ -43,7 +44,9 @@ The current mascot wears blue technical streetwear with plain geometric panels, 
 
 `src/portfolio.js` holds the four selected projects, four hackathon records, and three engagement/session records. Projects use descriptions and interface images from `D:\Projects\Portfolio`; competition and session records come from `D:\Projects\DADA-PORTFOLIO\DADA-Portfolio`. The SIH result is explicitly an internal-round win. Session presenter and speaker credit lines are omitted. The build-log highlights derive from the same competition records.
 
-The contribution channels open on mouse hover or activation by tap/keyboard. Projects reveals one image and description at a time, with project selectors, previous/next buttons, arrow keys, and touch swipes. It does not auto-advance. A panel remains open while its content is being explored; Close or Escape dismisses it and restores focus. Images are bundled in `public/assets/projects/` and `public/assets/events/` with no dependency on the source folders at runtime. Academic WDB uses a capture of the supplied portfolio's HTML/CSS conversation preview, labelled as a preview; `scripts/capture-academic-preview.mjs` records its provenance.
+About combines the existing AI Nexus team photo, CLICK interface preview, and blue mascot with decorative circuit animation. Its four principles form a connected strip. Stage 4 explicitly invites visitors to build their company's project or arrange a workshop, with full-card activation and filled action bars. The workshop dialog leads to the existing enquiry form with Workshop selected. Stage 6 has image previews, counts, visible click-to-open labels, and filled actions for each gallery. All new assets use the deployment base, and circuit animation follows reduced-motion and the footer's pause control.
+
+The contribution channels preview on mouse movement over a card and open on activation by tap/keyboard. A clicked selection stays open until another card is activated or the panel is closed, so incidental hover cannot replace it. Projects reveals one image and description at a time, with project selectors, previous/next buttons, arrow keys, and touch swipes. It does not auto-advance. Close or Escape dismisses the panel and restores focus. Images are bundled in `public/assets/projects/` and `public/assets/events/` with no dependency on the source folders at runtime. Academic WDB uses a capture of the supplied portfolio's HTML/CSS conversation preview, labelled as a preview; `scripts/capture-academic-preview.mjs` records its provenance.
 
 The four core members are Darshan C S, Andryan Durai Jebin, Dinesh G, and Akshaya P, in that order. Their roles, portraits, and available profile links come from the DADA portfolio's `data/team.ts` and `public/team/`. Portraits are bundled in `public/assets/team/`. Official team social links remain unconfigured.
 
@@ -59,7 +62,7 @@ The copied portfolio retains client work, Build/Consult services, process, proje
 
 The main site and consultancy have separate HTML and CSS entries. Vite builds both with one `npm run build`; the `consultancy-pages` plugin also writes `/consultancy/work/<slug>/index.html` for each case study, supporting direct links and refreshes on a static host. There is no runtime dependency on the source portfolio or a second server. Back-to-Team-DADA links return to `/`.
 
-Set `VITE_CONSULTANCY_URL` only to override the bundled destination. Workshops still uses `VITE_WORKSHOPS_URL`; until configured it opens the existing coming-soon dialog. Rebuild after changing environment variables.
+Set `VITE_CONSULTANCY_URL` only to override the bundled destination. Workshops uses `VITE_WORKSHOPS_URL` when configured; otherwise it opens a workshop planning dialog that leads to the enquiry form. Rebuild after changing environment variables.
 
 ## Email delivery
 

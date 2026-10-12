@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { achievements, destinations, members, principles, services } from '../content';
+import { achievements, members, principles, services } from '../content';
 export { default as ContributionsSection } from './Contributions';
 import { DestinationLink, Icon, MascotImage } from './Shared';
 import { WaveTrace } from './SignalField';
+import AboutVisual from './AboutVisual';
+import { sitePath } from '../site-paths';
 
 function Chapter({ number, children, className = '' }) {
   return <p className={`chapter mono ${className}`}><span>[ {number} ]</span>{children}<span className="chapter-line" aria-hidden="true" /></p>;
@@ -11,8 +13,11 @@ function Chapter({ number, children, className = '' }) {
 export function AboutSection({ onMascot }) {
   return <section id="about" className="section about-section"><div className="container">
     <Chapter number="02">THE PEOPLE BEHIND THE SIGNAL</Chapter>
-    <div className="about-composition"><div className="about-aside reveal"><span className="micro-label">A LITTLE ABOUT US</span><p>No single way to think.<br />No limit to what we can try.</p><button className="about-mascot" onClick={onMascot} aria-label="Meet our curious DADA mascot"><MascotImage pose="thinking" loading="lazy" /><span className="thought-label mono">WHAT IF... ↗</span></button></div><div className="about-manifesto reveal"><h2>STUDENTS.<br />BUILDERS.<br /><span className="outline-title">ALWAYS</span><br /><span className="orange-text">CURIOUS.</span></h2><p>We learn by making things real. Team DADA brings student perspectives together to build, experiment, and solve problems that go beyond the classroom.</p></div><div className="principles-list">{principles.map((item, index) => <article className="principle reveal" key={item.title}><span className="mono">0{index + 1} /</span><Icon name={item.icon} size={21} /><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div>
-    <div className="about-end mono"><span>INDEPENDENT THINKING</span><span className="about-connector" aria-hidden="true">──────────────────→</span><span>SHARED DIRECTION</span></div>
+    <div className="about-layout">
+      <div className="about-story reveal"><p className="micro-label">A LITTLE ABOUT US / A LOT OF CURIOSITY</p><h2>STUDENTS.<br />BUILDERS.<br /><span className="outline-title">ALWAYS</span><br /><span className="orange-text">CURIOUS.</span></h2><p>We learn by making things real. Team DADA brings student perspectives together to build, experiment, and solve problems that go beyond the classroom.</p><div className="about-build-loop mono"><span>AN IDEA</span><Icon name="arrow" size={17} /><span>A PROTOTYPE</span><Icon name="arrow" size={17} /><span>A POSSIBILITY</span></div></div>
+      <AboutVisual onMascot={onMascot} />
+    </div>
+    <div className="about-values">{principles.map((item, index) => <article className={`about-value value-${index + 1} reveal`} key={item.title}><div className="about-value-symbol"><Icon name={item.icon} size={27} /><span className="mono">0{index + 1}</span><i aria-hidden="true" /></div><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
   </div></section>;
 }
 
@@ -35,9 +40,20 @@ export function WhatWeDoSection({ onDestination }) {
 export function ExploreWorkSection({ onDestination }) {
   return <section id="work" className="section work-section"><div className="container">
     <Chapter number="04">OPEN A NEW POSSIBILITY</Chapter>
-    <div className="work-heading reveal"><h2>LESS TALK.<br /><span className="pink-text">MORE MAKING.</span></h2><span className="oversize-arrow" aria-hidden="true">↘</span></div>
-    <div className="work-composition"><DestinationLink destination="consultancy" onDestination={onDestination} className="work-card work-consultancy reveal"><div className="work-card-top mono"><span>01 / FOR YOUR NEXT BIG IDEA</span><span>[ BUILD ]</span></div><div className="work-card-copy"><span className="work-kicker">DADA / CONSULTANCY</span><h3>FROM<br />“WHAT IF”<br /><span>TO WHAT'S NEXT.</span></h3><p>{destinations.consultancy.description}</p></div><div className="code-art" aria-hidden="true"><div className="code-art-top mono"><span>idea → reality</span><Icon name="code" size={18} /></div><code><span>const</span> next = {'{'}<br />&nbsp; curiosity: <b>unlimited</b>,<br />&nbsp; team: <b>'DADA'</b><br />{'}'};<br /><span>await</span> build(next);</code><span className="code-crosshair">+</span></div><div className="work-card-link">Explore Consultancy <Icon name="arrow" size={25} /></div></DestinationLink>
-      <DestinationLink destination="workshops" onDestination={onDestination} className="work-card work-workshops reveal"><div className="work-card-top mono"><span>02 / LEARN IT BY DOING IT</span><span>[ LEARN ]</span></div><div className="workshop-art"><span className="workshop-word" aria-hidden="true">HANDS<br />ON.</span><MascotImage pose="laptop" loading="lazy" decorative /><span className="workshop-caption mono">CURIOUS MINDS WELCOME.</span></div><div className="work-card-copy"><span className="work-kicker">DADA / WORKSHOPS</span><h3>GET YOUR<br /><span>IDEAS DIRTY.</span></h3><p>{destinations.workshops.description}</p></div><div className="work-card-link">Explore Workshops <Icon name="arrow" size={25} /></div></DestinationLink>
+    <div className="work-heading reveal"><h2>LESS TALK.<br /><span className="pink-text">MORE MAKING.</span></h2><p className="section-open-hint"><Icon name="pointer" size={22} /><span>Have something in mind?<strong>Click a card to get started.</strong></span></p></div>
+    <div className="work-composition work-invitations">
+      <DestinationLink destination="consultancy" onDestination={onDestination} className="work-card work-consultancy reveal" aria-label="Build your company's project with us. Explore consultancy and client work.">
+        <div className="work-card-top mono"><span>01 / DADA CONSULTANCY</span><span className="click-cue"><Icon name="pointer" size={14} /> CLICK TO EXPLORE</span></div>
+        <div className="work-card-copy"><h3>Build your company's<br /><span>project with us.</span></h3><p>Websites, web apps, and tech & AI advice. Explore our client work and tell us what you want to build.</p></div>
+        <div className="client-work-preview" aria-hidden="true"><div className="client-preview-screen"><div className="about-window-bar mono"><span><i /><i /><i /></span>SS BUILDERS<Icon name="arrow" size={13} /></div><img src={sitePath('/consultancy/projects/ss-builders/desktop-fold.jpg')} alt="" loading="lazy" width="1600" height="1000" /></div><div className="client-preview-screen preview-second"><div className="about-window-bar mono"><span><i /><i /><i /></span>DR. BELIN'S DENTISTRY</div><img src={sitePath('/consultancy/projects/belin-dentistry/desktop-fold.jpg')} alt="" loading="lazy" width="1600" height="1000" /></div><span className="client-preview-caption mono">REAL CLIENTS. WORKING WEBSITES.</span></div>
+        <div className="work-card-link"><span>Explore our work & start a project<small>OPEN CONSULTANCY PORTFOLIO</small></span><Icon name="arrow" size={28} /></div>
+      </DestinationLink>
+      <DestinationLink destination="workshops" onDestination={onDestination} className="work-card work-workshops reveal" aria-label="Need a workshop to be conducted? Plan a workshop with DADA.">
+        <div className="work-card-top mono"><span>02 / DADA WORKSHOPS</span><span className="click-cue"><Icon name="pointer" size={14} /> CLICK TO ENQUIRE</span></div>
+        <div className="work-card-copy"><h3>Need a workshop<br /><span>to be conducted?</span></h3><p>Bring hands-on learning to your campus or team. Tell us the topic, audience, and date you have in mind.</p></div>
+        <div className="workshop-art"><span className="workshop-word" aria-hidden="true">LEARN.<br />MAKE.</span><MascotImage pose="laptop" loading="lazy" decorative /><span className="workshop-caption mono">LESS THEORY. MORE “I BUILT THIS.”</span><span className="workshop-topic"><Icon name="terminal" size={17} /> CODE. TRY. REPEAT.</span></div>
+        <div className="work-card-link"><span>Let's plan your workshop<small>OPEN WORKSHOP ENQUIRY</small></span><Icon name="arrow" size={28} /></div>
+      </DestinationLink>
     </div>
   </div></section>;
 }

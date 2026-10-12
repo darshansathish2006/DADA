@@ -1,8 +1,8 @@
-import { ArrowDown, ArrowUpRight, BrainCircuit, Building2, Check, ChevronRight, Code2, Copy, Github, Layers3, Lightbulb, Linkedin, Laptop, Menu, Mic2, Plus, Send, Sparkles, Terminal, Users, Workflow, X, Zap, Trophy, Fingerprint } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, BrainCircuit, Building2, Check, ChevronRight, Code2, Copy, Github, Layers3, Lightbulb, Linkedin, Laptop, Menu, Mic2, MousePointer2, Plus, Send, Sparkles, Terminal, Users, Workflow, X, Zap, Trophy, Fingerprint } from 'lucide-react';
 import { mascotPoses, siteConfig } from '../content';
 import { sitePath } from '../site-paths';
 
-const icons = { arrow: ArrowUpRight, down: ArrowDown, brain: BrainCircuit, building: Building2, check: Check, chevron: ChevronRight, code: Code2, copy: Copy, github: Github, layers: Layers3, linkedin: Linkedin, laptop: Laptop, lightbulb: Lightbulb, menu: Menu, mic: Mic2, plus: Plus, send: Send, sparkles: Sparkles, terminal: Terminal, users: Users, workflow: Workflow, x: X, zap: Zap, trophy: Trophy, fingerprint: Fingerprint };
+const icons = { arrow: ArrowUpRight, down: ArrowDown, brain: BrainCircuit, building: Building2, check: Check, chevron: ChevronRight, code: Code2, copy: Copy, github: Github, layers: Layers3, linkedin: Linkedin, laptop: Laptop, lightbulb: Lightbulb, menu: Menu, mic: Mic2, pointer: MousePointer2, plus: Plus, send: Send, sparkles: Sparkles, terminal: Terminal, users: Users, workflow: Workflow, x: X, zap: Zap, trophy: Trophy, fingerprint: Fingerprint };
 export function Icon({ name, size = 22, ...props }) { const Component = icons[name] || Sparkles; return <Component size={size} strokeWidth={1.6} aria-hidden="true" {...props} />; }
 
 export function Wordmark({ className = '' }) { return <span className={`wordmark ${className}`}><img src={sitePath('/assets/branding/dada-logo-blue.png')} alt="DADA" width="1536" height="1024" /></span>; }

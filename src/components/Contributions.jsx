@@ -4,6 +4,12 @@ import { engagements, projects, technicalInitiatives } from '../portfolio';
 import { Icon } from './Shared';
 import EventGallery from './EventGallery';
 
+const previews = {
+  projects: { image: projects[0].image, label: 'EchoSenseAI / A closer look' },
+  initiatives: { image: technicalInitiatives[1].image, label: 'Smart Ability / The winning moment' },
+  engagements: { image: engagements[2].photos[0].src, label: 'CLICK / Learning, shared' },
+};
+
 function ProjectCarousel() {
   const [index, setIndex] = useState(0);
   const touchStart = useRef(null);
@@ -94,7 +100,11 @@ function Engagements({ motionPaused }) {
 export default function ContributionsSection({ motionPaused = false }) {
   const [active, setActive] = useState(null);
   const lastTrigger = useRef(null);
+  const selectionLocked = useRef(false);
   function open(id, reveal = false) {
+    // A deliberate click/keyboard choice takes precedence over hover previews.
+    if (!reveal && selectionLocked.current) return;
+    if (reveal) selectionLocked.current = true;
     lastTrigger.current = id; setActive(id);
     if (reveal) requestAnimationFrame(() => {
       const panel = document.getElementById(`contribution-panel-${id}`);
@@ -103,6 +113,7 @@ export default function ContributionsSection({ motionPaused = false }) {
     });
   }
   function close() {
+    selectionLocked.current = false;
     setActive(null);
     document.getElementById(`contribution-trigger-${lastTrigger.current}`)?.focus();
   }
@@ -111,17 +122,20 @@ export default function ContributionsSection({ motionPaused = false }) {
   }}><div className="container">
     <p className="chapter mono"><span>[ 06 ]</span>GOOD ENERGY TRAVELS<span className="chapter-line" aria-hidden="true" /></p>
     <div className="contribution-heading reveal"><span className="micro-label">OUTSIDE OUR OWN BUBBLE.</span><h2>THE RIPPLE<br /><span className="outline-title">EFFECT.</span></h2><p>Projects, technical initiatives, and shared experiences. Explore the things we build and the communities we learn with.</p></div>
-    <div className="contribution-network">{contributions.map(item => <article className={`contribution-node node-${item.number} reveal ${active === item.id ? 'node-active' : ''}`} key={item.id}>
+    <p className="gallery-open-hint"><Icon name="pointer" size={21} /><span><strong>Click a card to open its gallery.</strong> Explore the photos, stories, and project details inside.</span></p>
+    <div className="contribution-network gallery-channels">{contributions.map(item => <article className={`contribution-node node-${item.number} reveal ${active === item.id ? 'node-active' : ''}`} key={item.id}>
       <button className="contribution-trigger" id={`contribution-trigger-${item.id}`} type="button"
         aria-expanded={active === item.id} aria-controls={`contribution-panel-${item.id}`}
-        onPointerEnter={event => { if (event.pointerType === 'mouse') open(item.id); }} onClick={() => open(item.id, true)}>
-        <span className="node-label mono"><span>NODE / {item.number}</span><Icon name={item.icon} size={22} /></span>
-        <span className="node-title" id={`contribution-title-${item.id}`}>{item.title}</span>
-        <span className="node-description">{item.text}</span>
-        <span className="node-action mono">{item.action}<Icon name="down" size={17} /></span>
+        aria-labelledby={`contribution-title-${item.id} contribution-action-${item.id}`} aria-describedby={`contribution-description-${item.id}`}
+        onPointerMove={event => { if (event.pointerType === 'mouse' && (event.movementX || event.movementY)) open(item.id); }} onClick={() => open(item.id, true)}>
+        <span className="node-preview" aria-hidden="true"><img src={previews[item.id].image} alt="" loading="lazy" width="1200" height="750" /><span className="node-preview-caption mono">{previews[item.id].label}</span><span className="node-open-badge mono"><Icon name="pointer" size={13} />{active === item.id ? 'OPEN BELOW' : 'CLICK TO OPEN'}</span></span>
+        <span className="node-copy"><span className="node-label mono"><span>{item.meta}</span><Icon name={item.icon} size={22} /></span>
+          <span className="node-title" id={`contribution-title-${item.id}`}>{item.title}</span>
+          <span className="node-description" id={`contribution-description-${item.id}`}>{item.text}</span>
+        </span>
+        <span className="node-action" id={`contribution-action-${item.id}`}>{item.action}<Icon name="down" size={20} /></span>
       </button>
-    </article>)}<div className="network-wire" aria-hidden="true" /></div>
-    {!active && <p className="contribution-instruction mono"><span className="hover-instruction">HOVER OR </span>TAP A CHANNEL TO EXPLORE <Icon name="arrow" size={15} /></p>}
+    </article>)}</div>
     {contributions.map(item => <div key={item.id} id={`contribution-panel-${item.id}`} hidden={active !== item.id}
       className={`contribution-detail detail-${item.id}`} role="region" tabIndex={-1} aria-labelledby={`contribution-title-${item.id}`}>
       {active === item.id && <><div className="contribution-detail-top mono"><span><i className="status-dot" />{item.title} / OPEN CHANNEL</span><button type="button" onClick={close} aria-label={`Close ${item.title}`}><span>CLOSE</span><Icon name="x" size={18} /></button></div>
