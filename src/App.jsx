@@ -10,7 +10,7 @@ import SignalField from './components/SignalField';
 export default function App() {
   const [modal, setModal] = useState(null);
   const [enquiryType, setEnquiryType] = useState(null);
-  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#ffffff' : '#030405';
