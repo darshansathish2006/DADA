@@ -22,7 +22,7 @@ export interface TeamMember {
   resume?: string;
 }
 
-export const teamSize = 6;
+export const teamSize = 5;
 
 export const team: TeamMember[] = [
   {
@@ -45,9 +45,6 @@ export const team: TeamMember[] = [
     website: 'https://andryan-portfolio.vercel.app/',
     resume: '/resumes/andryan-durai-jebin.pdf',
   },
-  // Details supplied so far. Still to come: Aakash A's photo, and profile links for Aakash A and
-  // Daniel Jonathan.
-  { name: 'Aakash A', role: 'Co-Lead Developer' },
   {
     name: 'Akshaya P',
     role: 'Frontend Developer, Data Analyst',

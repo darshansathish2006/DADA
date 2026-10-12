@@ -19,6 +19,7 @@
     "adaptations": [
       "Adapt Next.js links and images to the existing React/Vite static build.",
       "Keep deployment-base-aware case-study pages, assets and main-site return links.",
+      "Preserve the locally maintained five-person team roster and project credits when updating upstream content.",
       "Email enquiries through the shared endpoint, with local email drafts as a fallback and shared public contact settings.",
       "Group contact numbers under Call / WhatsApp in the contact section and footer."
     ]

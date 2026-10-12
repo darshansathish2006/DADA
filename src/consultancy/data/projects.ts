@@ -64,7 +64,6 @@ export const ongoingProjects: OngoingProject[] = [];
 const person = {
   andryan: 'Andryan Durai Jebin',
   darshan: 'Darshan C S',
-  aakash: 'Aakash A',
 } as const;
 
 const desktop = (slug: string, file: string, alt: string): ProjectImage => ({
@@ -93,7 +92,7 @@ export const projects: Project[] = [
       'It brings together a project showcase, the company’s expertise and process, and a residential proposal, so prospective clients can see the work and how it is delivered.',
     ],
     did: ['Brand website', 'Project showcase'],
-    workedOnBy: [person.andryan, person.aakash],
+    workedOnBy: [person.andryan],
     brief:
       'Create a professional website for SS Builders, a Chennai-based flat promoter and contractor, to present its residential construction, reconstruction, and interior design services. The website needed an editorial visual identity, an engaging project gallery, an Anna Nagar residential proposal section, and a contact form integrated with Google Sheets for inquiry management.',
     stack: [
@@ -133,7 +132,7 @@ export const projects: Project[] = [
       'Visitors can book an appointment online, and a guided quick tour walks them through the site.',
     ],
     did: ['Clinic website', 'Appointment booking', 'Guided tour'],
-    workedOnBy: [person.andryan, person.darshan, person.aakash],
+    workedOnBy: [person.andryan, person.darshan],
     brief:
       'Create a friendly, professional website for a dental clinic that helps patients explore services, learn about the clinic, and navigate an appointment-booking experience. Use approachable visual storytelling, including a superhero tooth mascot and a happy-tooth character in the designated clinic-photo section.',
     stack: [
