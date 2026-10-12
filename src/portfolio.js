@@ -67,7 +67,7 @@ export const technicalInitiatives = [
     id: 'cih-26', title: 'CIH ’26', detail: 'Rathinam Techzone, Coimbatore',
     date: 'Aug 2026', result: 'Finalist', project: 'SEVPS',
     description: 'Reached the finals with the Smart Emergency Vehicle Priority System, a real-time traffic-signal priority and routing platform for ambulances.',
-    image: sitePath('/assets/events/cih-26.jpg'), alt: 'Team on the steps at Rathinam Techzone during CIH ’26',
+    image: sitePath('/assets/events/cih.jpeg'), alt: 'The DADA team collaborating around laptops during CIH ’26',
   },
 ];
 
