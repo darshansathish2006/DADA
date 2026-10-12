@@ -1,0 +1,65 @@
+{
+  "mode": "Built-in image_gen image editing",
+  "reference": "public/assets/mascot/dada-mascot-orange.png",
+  "palette": {
+    "blue": "#3984FF",
+    "cyan": "#69E8FF"
+  },
+  "transparentBackground": true,
+  "poses": [
+    {
+      "pose": "pointing",
+      "inputImages": [
+        "public/assets/mascot/dada-mascot-orange.png",
+        "public/assets/mascot/dada-neon-pointing.png",
+        "public/assets/branding/dada-logo-blue.png"
+      ],
+      "prompt": "Use case: compositing / precise-object-edit.\nAsset type: DADA portfolio mascot, full-body transparent PNG.\nInput images: Image 1 is the user's exact FACE AND IDENTITY reference (the orange DADA poster). Image 2 is the existing blue POINTING mascot to edit. Image 3 is the official blue DADA logo reference.\nPrimary request: Replace the childish face/head of Image 2 with the more mature young-adult face from Image 1. Closely preserve Image 1's facial identity: warm medium-brown skin, brown rectangular glasses, curly dark hair, thick expressive eyebrows, defined jaw and cheek structure, full neatly groomed beard and moustache, and relaxed confident closed-mouth smile. Make him read as a confident adult in his mid-to-late twenties. Less rounded baby cheeks and slightly smaller eyes, an adult jawline and nose, mature natural facial proportions. Reduce the oversized head slightly to match the more balanced head-to-body proportion in Image 1. Keep the friendly polished stylized 3D aesthetic, not photorealism.\nInvariants: Preserve Image 2's full body POINTING at the viewer pose, hands and fingers, camera, framing, modern black/electric-blue technical jacket, white hoodie, blue/cyan seams, black cargo trousers, blue webbing tabs, watch, backpack and white/blue sneakers. Clothing stays blue, cyan, black and white. Preserve the official sculpted connected DADA logo with its two swoosh arcs on the chest, using Image 3. No stars or star patches on any clothing or shoes.\nOutput: ONE isolated full-body character, 1024x1536 portrait PNG with GENUINE TRANSPARENT ALPHA. Keep all hair, fingers and both shoes fully inside the frame with a small margin. No scene, floor, cast shadow, backdrop, gradient, checkerboard pixels, floating graphics or glow outside the silhouette. Do not copy the poster's orange palette, text, stars or background.",
+      "asset": "public/assets/mascot/dada-mature-pointing.png"
+    },
+    {
+      "pose": "thinking",
+      "inputImages": [
+        "public/assets/mascot/dada-mascot-orange.png",
+        "public/assets/mascot/dada-neon-thinking.png",
+        "public/assets/mascot/dada-mature-pointing.png",
+        "public/assets/branding/dada-logo-blue.png"
+      ],
+      "prompt": "Use case: compositing / precise-object-edit.\nAsset type: DADA portfolio mascot, full-body transparent PNG.\nInput images: Image 1 is the exact original mature FACE/IDENTITY reference supplied by the user (orange poster). Image 2 is the existing blue THINKING character that you must edit. Image 3 is the newly approved-looking blue POINTING mascot and establishes the new consistent adult facial design and head proportions. Image 4 is the official blue DADA logo reference.\nPrimary request: Update ONLY the face/head of Image 2 to the more mature young-adult identity from Image 1, matching the updated face and slightly smaller adult head proportions of Image 3 very closely. Warm medium-brown skin, rectangular brown glasses, dark curly hair, thick eyebrows, a more defined adult jawline, fuller neatly groomed beard and moustache, less round baby cheeks, slightly smaller eyes and calm confidence. He should look like a friendly adult in his mid-to-late twenties rather than a child. Same polished stylized 3D aesthetic, not photorealism.\nPose: Preserve Image 2's THINKING, one hand at the chin and the other arm folded, with the thoughtful expression. Adapt the reference face naturally to this pose's expression and head angle. Exact same individual as Image 3.\nInvariants: Keep Image 2's entire body pose, hands, held objects, silhouette, camera, full-body framing, modern black/electric-blue technical jacket, white hoodie, blue/cyan details, black cargo trousers, webbing tabs, backpack, watch, and white/blue sneakers. Clothing remains blue, cyan, white and black. Preserve the custom connected sculpted DADA chest logo and its two arcs from Image 4, also on the laptop lid if present. NO stars, star patches or sparkles on clothes or shoes.\nOutput: ONE full-body isolated mascot in a 1024x1536 portrait PNG, GENUINE TRANSPARENT ALPHA background. All hair, hands, fingers and both shoes inside frame with a small margin. No background, gradient, checkerboard pixels, outside glow, floor, cast shadow, poster text, floating graphics or environment. Do not copy the orange clothing, stars or background from Image 1.",
+      "asset": "public/assets/mascot/dada-mature-thinking.png"
+    },
+    {
+      "pose": "laptop",
+      "inputImages": [
+        "public/assets/mascot/dada-mascot-orange.png",
+        "public/assets/mascot/dada-neon-laptop.png",
+        "public/assets/mascot/dada-mature-pointing.png",
+        "public/assets/branding/dada-logo-blue.png"
+      ],
+      "prompt": "Use case: compositing / precise-object-edit.\nAsset type: DADA portfolio mascot, full-body transparent PNG.\nInput images: Image 1 is the exact original mature FACE/IDENTITY reference supplied by the user (orange poster). Image 2 is the existing blue LAPTOP character that you must edit. Image 3 is the newly approved-looking blue POINTING mascot and establishes the new consistent adult facial design and head proportions. Image 4 is the official blue DADA logo reference.\nPrimary request: Update ONLY the face/head of Image 2 to the more mature young-adult identity from Image 1, matching the updated face and slightly smaller adult head proportions of Image 3 very closely. Warm medium-brown skin, rectangular brown glasses, dark curly hair, thick eyebrows, a more defined adult jawline, fuller neatly groomed beard and moustache, less round baby cheeks, slightly smaller eyes and calm confidence. He should look like a friendly adult in his mid-to-late twenties rather than a child. Same polished stylized 3D aesthetic, not photorealism.\nPose: Preserve Image 2's HOLDING AND USING A LAPTOP, with the same laptop and hands, and a calm confident smile. Adapt the reference face naturally to this pose's expression and head angle. Exact same individual as Image 3.\nInvariants: Keep Image 2's entire body pose, hands, held objects, silhouette, camera, full-body framing, modern black/electric-blue technical jacket, white hoodie, blue/cyan details, black cargo trousers, webbing tabs, backpack, watch, and white/blue sneakers. Clothing remains blue, cyan, white and black. Preserve the custom connected sculpted DADA chest logo and its two arcs from Image 4, also on the laptop lid if present. NO stars, star patches or sparkles on clothes or shoes.\nOutput: ONE full-body isolated mascot in a 1024x1536 portrait PNG, GENUINE TRANSPARENT ALPHA background. All hair, hands, fingers and both shoes inside frame with a small margin. No background, gradient, checkerboard pixels, outside glow, floor, cast shadow, poster text, floating graphics or environment. Do not copy the orange clothing, stars or background from Image 1.",
+      "asset": "public/assets/mascot/dada-mature-laptop.png"
+    },
+    {
+      "pose": "celebrating",
+      "inputImages": [
+        "public/assets/mascot/dada-mascot-orange.png",
+        "public/assets/mascot/dada-neon-celebrating.png",
+        "public/assets/mascot/dada-mature-pointing.png",
+        "public/assets/branding/dada-logo-blue.png"
+      ],
+      "prompt": "Use case: compositing / precise-object-edit.\nAsset type: DADA portfolio mascot, full-body transparent PNG.\nInput images: Image 1 is the exact original mature FACE/IDENTITY reference supplied by the user (orange poster). Image 2 is the existing blue CELEBRATING character that you must edit. Image 3 is the newly approved-looking blue POINTING mascot and establishes the new consistent adult facial design and head proportions. Image 4 is the official blue DADA logo reference.\nPrimary request: Update ONLY the face/head of Image 2 to the more mature young-adult identity from Image 1, matching the updated face and slightly smaller adult head proportions of Image 3 very closely. Warm medium-brown skin, rectangular brown glasses, dark curly hair, thick eyebrows, a more defined adult jawline, fuller neatly groomed beard and moustache, less round baby cheeks, slightly smaller eyes and calm confidence. He should look like a friendly adult in his mid-to-late twenties rather than a child. Same polished stylized 3D aesthetic, not photorealism.\nPose: Preserve Image 2's CELEBRATING, jumping with both fists raised and one knee up, keeping his playful wink and joyful smile. Adapt the reference face naturally to this pose's expression and head angle. Exact same individual as Image 3.\nInvariants: Keep Image 2's entire body pose, hands, held objects, silhouette, camera, full-body framing, modern black/electric-blue technical jacket, white hoodie, blue/cyan details, black cargo trousers, webbing tabs, backpack, watch, and white/blue sneakers. Clothing remains blue, cyan, white and black. Preserve the custom connected sculpted DADA chest logo and its two arcs from Image 4, also on the laptop lid if present. NO stars, star patches or sparkles on clothes or shoes.\nOutput: ONE full-body isolated mascot in a 1024x1536 portrait PNG, GENUINE TRANSPARENT ALPHA background. All hair, hands, fingers and both shoes inside frame with a small margin. No background, gradient, checkerboard pixels, outside glow, floor, cast shadow, poster text, floating graphics or environment. Do not copy the orange clothing, stars or background from Image 1.",
+      "asset": "public/assets/mascot/dada-mature-celebrating.png"
+    },
+    {
+      "pose": "waving",
+      "inputImages": [
+        "public/assets/mascot/dada-mascot-orange.png",
+        "public/assets/mascot/dada-neon-waving.png",
+        "public/assets/mascot/dada-mature-pointing.png",
+        "public/assets/branding/dada-logo-blue.png"
+      ],
+      "prompt": "Use case: compositing / precise-object-edit.\nAsset type: DADA portfolio mascot, full-body transparent PNG.\nInput images: Image 1 is the exact original mature FACE/IDENTITY reference supplied by the user (orange poster). Image 2 is the existing blue WAVING character that you must edit. Image 3 is the newly approved-looking blue POINTING mascot and establishes the new consistent adult facial design and head proportions. Image 4 is the official blue DADA logo reference.\nPrimary request: Update ONLY the face/head of Image 2 to the more mature young-adult identity from Image 1, matching the updated face and slightly smaller adult head proportions of Image 3 very closely. Warm medium-brown skin, rectangular brown glasses, dark curly hair, thick eyebrows, a more defined adult jawline, fuller neatly groomed beard and moustache, less round baby cheeks, slightly smaller eyes and calm confidence. He should look like a friendly adult in his mid-to-late twenties rather than a child. Same polished stylized 3D aesthetic, not photorealism.\nPose: Preserve Image 2's WAVING, one open palm raised and the other hand in the pocket, with a welcoming confident smile. Adapt the reference face naturally to this pose's expression and head angle. Exact same individual as Image 3.\nInvariants: Keep Image 2's entire body pose, hands, held objects, silhouette, camera, full-body framing, modern black/electric-blue technical jacket, white hoodie, blue/cyan details, black cargo trousers, webbing tabs, backpack, watch, and white/blue sneakers. Clothing remains blue, cyan, white and black. Preserve the custom connected sculpted DADA chest logo and its two arcs from Image 4, also on the laptop lid if present. NO stars, star patches or sparkles on clothes or shoes.\nOutput: ONE full-body isolated mascot in a 1024x1536 portrait PNG, GENUINE TRANSPARENT ALPHA background. All hair, hands, fingers and both shoes inside frame with a small margin. No background, gradient, checkerboard pixels, outside glow, floor, cast shadow, poster text, floating graphics or environment. Do not copy the orange clothing, stars or background from Image 1.",
+      "asset": "public/assets/mascot/dada-mature-waving.png"
+    }
+  ]
+}

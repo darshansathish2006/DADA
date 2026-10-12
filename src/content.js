@@ -7,7 +7,7 @@ export const siteConfig = {
   consultancyUrl: import.meta.env.VITE_CONSULTANCY_URL || '/consultancy/',
   workshopsUrl: import.meta.env.VITE_WORKSHOPS_URL || '',
   enquiryEndpoint: import.meta.env.VITE_ENQUIRY_ENDPOINT || '',
-  mascot: sitePath('/assets/mascot/dada-neon-pointing.png'),
+  mascot: sitePath('/assets/mascot/dada-mature-pointing.png'),
   // Add verified URLs here. Empty entries are displayed as unavailable, never fake links.
   socials: [
     { label: 'GitHub', url: '' },
@@ -18,11 +18,11 @@ export const siteConfig = {
 
 // Individual transparent cutouts. Source posters are archived in public/assets/mascot.
 export const mascotPoses = {
-  pointing: { src: sitePath('/assets/mascot/dada-neon-pointing.png'), label: 'Ready to build', alt: 'DADA mascot pointing confidently toward the viewer' },
-  thinking: { src: sitePath('/assets/mascot/dada-neon-thinking.png'), label: 'Always curious', alt: 'DADA mascot thinking with a hand on his chin' },
-  celebrating: { src: sitePath('/assets/mascot/dada-neon-celebrating.png'), label: 'Big build energy', alt: 'DADA mascot jumping in celebration with both hands raised' },
-  laptop: { src: sitePath('/assets/mascot/dada-neon-laptop.png'), label: 'Learning by doing', alt: 'DADA mascot working on an open laptop' },
-  waving: { src: sitePath('/assets/mascot/dada-neon-waving.png'), label: 'Say hello', alt: 'DADA mascot smiling and waving hello' },
+  pointing: { src: sitePath('/assets/mascot/dada-mature-pointing.png'), label: 'Ready to build', alt: 'DADA mascot pointing confidently toward the viewer' },
+  thinking: { src: sitePath('/assets/mascot/dada-mature-thinking.png'), label: 'Always curious', alt: 'DADA mascot thinking with a hand on his chin' },
+  celebrating: { src: sitePath('/assets/mascot/dada-mature-celebrating.png'), label: 'Big build energy', alt: 'DADA mascot jumping in celebration with both hands raised' },
+  laptop: { src: sitePath('/assets/mascot/dada-mature-laptop.png'), label: 'Learning by doing', alt: 'DADA mascot working on an open laptop' },
+  waving: { src: sitePath('/assets/mascot/dada-mature-waving.png'), label: 'Say hello', alt: 'DADA mascot smiling and waving hello' },
 };
 
 export const navigation = [
