@@ -70,6 +70,7 @@ h2 .outline-title { -webkit-text-stroke-color: #777d87; }
 .hero-editorial > p { font-size: 28px; line-height: 1.32; letter-spacing: -.025em; margin-top: 17px; }
 .hero-editorial em { font-style: normal; color: var(--green); }
 .hero-description { max-width: 360px; color: #a5a9b0; font-size: 13px; line-height: 1.9; margin: 17px 0 24px; }
+.hero-description strong { display: block; margin-bottom: 8px; color: var(--text); font-size: clamp(12px, 1.2vw, 16px); line-height: 1.5; }
 .hero-editorial .button { width: 207px; }
 .hero-editorial .text-link { width: 207px; }
 .hero-visual { position: relative; height: 430px; min-width: 0; align-self: end; }

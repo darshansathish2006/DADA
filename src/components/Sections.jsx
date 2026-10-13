@@ -42,15 +42,15 @@ export function ExploreWorkSection({ onDestination }) {
     <Chapter number="04">OPEN A NEW POSSIBILITY</Chapter>
     <div className="work-heading reveal"><h2>LESS TALK.<br /><span className="pink-text">MORE MAKING.</span></h2><p className="section-open-hint"><Icon name="pointer" size={22} /><span>Have something in mind?<strong>Click a card to get started.</strong></span></p></div>
     <div className="work-composition work-invitations">
-      <DestinationLink destination="consultancy" onDestination={onDestination} className="work-card work-consultancy reveal" aria-label="Build your company's project with us. Explore consultancy and client work.">
+      <DestinationLink destination="consultancy" onDestination={onDestination} className="work-card work-consultancy reveal" aria-label="Do your project with us. Explore consultancy and client work.">
         <div className="work-card-top mono"><span>01 / DADA CONSULTANCY</span><span className="click-cue"><Icon name="pointer" size={14} /> CLICK TO EXPLORE</span></div>
-        <div className="work-card-copy"><h3>Build your company's<br /><span>project with us.</span></h3><p>Websites, web apps, and tech & AI advice. Explore our client work and tell us what you want to build.</p></div>
+        <div className="work-card-copy"><h3>Do your project<br /><span>with us.</span></h3><p>Websites, web apps, and tech & AI advice. Explore our client work and tell us what you want to build.</p></div>
         <div className="client-work-preview" aria-hidden="true"><div className="client-preview-screen"><div className="about-window-bar mono"><span><i /><i /><i /></span>SS BUILDERS<Icon name="arrow" size={13} /></div><img src={sitePath('/consultancy/projects/ss-builders/desktop-fold.jpg')} alt="" loading="lazy" width="1600" height="1000" /></div><div className="client-preview-screen preview-second"><div className="about-window-bar mono"><span><i /><i /><i /></span>DR. BELIN'S DENTISTRY</div><img src={sitePath('/consultancy/projects/belin-dentistry/desktop-fold.jpg')} alt="" loading="lazy" width="1600" height="1000" /></div><span className="client-preview-caption mono">REAL CLIENTS. WORKING WEBSITES.</span></div>
         <div className="work-card-link"><span>Explore our work & start a project<small>OPEN CONSULTANCY PORTFOLIO</small></span><Icon name="arrow" size={28} /></div>
       </DestinationLink>
-      <DestinationLink destination="workshops" onDestination={onDestination} className="work-card work-workshops reveal" aria-label="Need a workshop to be conducted? Plan a workshop with DADA.">
+      <DestinationLink destination="workshops" onDestination={onDestination} className="work-card work-workshops reveal" aria-label="Want to organize and conduct a workshop? We're here for you. Plan a workshop with DADA.">
         <div className="work-card-top mono"><span>02 / DADA WORKSHOPS</span><span className="click-cue"><Icon name="pointer" size={14} /> CLICK TO EXPLORE</span></div>
-        <div className="work-card-copy"><h3>Need a workshop<br /><span>to be conducted?</span></h3><p>Bring hands-on learning to your campus or team. Tell us the topic, audience, and date you have in mind.</p></div>
+        <div className="work-card-copy"><h3>Want to organize &amp;<br /><span>conduct a workshop?</span></h3><p>We’re here for you. Bring hands-on learning to your campus or team. Tell us the topic, audience, and date you have in mind.</p></div>
         <div className="workshop-art"><span className="workshop-word" aria-hidden="true">LEARN.<br />MAKE.</span><MascotImage pose="laptop" loading="lazy" decorative /><span className="workshop-caption mono">LESS THEORY. MORE “I BUILT THIS.”</span><span className="workshop-topic"><Icon name="terminal" size={17} /> CODE. TRY. REPEAT.</span></div>
         <div className="work-card-link"><span>Let's plan your workshop<small>EXPLORE WORKSHOPS & ACTIVITIES</small></span><Icon name="arrow" size={28} /></div>
       </DestinationLink>
