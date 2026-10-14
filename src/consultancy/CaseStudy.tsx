@@ -15,7 +15,7 @@ export default function CaseStudyPage({ slug }: { slug: string }) {
   const project = getProject(slug);
   if (!project) return <div className="wrap section-y"><h1 className="text-h2">Project not found</h1><Link href="/#work">Back to all work</Link></div>;
   const { prev, next } = getAdjacentProjects(project.slug);
-  const [phone, ...detail] = project.gallery;
+  const hasPortrait = project.gallery.some((image) => image.height > image.width);
 
   return (
     <article>
@@ -37,7 +37,7 @@ export default function CaseStudyPage({ slug }: { slug: string }) {
             <dd>{project.client}</dd>
           </div>
           <div>
-            <dt className="eyebrow mb-1">Live site</dt>
+            <dt className="eyebrow mb-1">{project.access ? 'Application access' : 'Live site'}</dt>
             <dd>
               {project.url ? (
                 <a
@@ -51,7 +51,7 @@ export default function CaseStudyPage({ slug }: { slug: string }) {
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
               ) : (
-                <span className="text-muted">Not published yet</span>
+                <span className="text-muted">{project.access ?? 'Not published yet'}</span>
               )}
             </dd>
           </div>
@@ -66,6 +66,7 @@ export default function CaseStudyPage({ slug }: { slug: string }) {
 
       <div className="wrap">
         <BrowserFrame image={project.cover} url={project.url} sizes="(min-width: 1280px) 1200px, 100vw" priority />
+        {project.screenshotsNote ? <p className="mt-3 text-small text-muted">{project.screenshotsNote}</p> : null}
       </div>
 
       <div className="wrap grid gap-12 py-14 md:py-20">
@@ -87,6 +88,19 @@ export default function CaseStudyPage({ slug }: { slug: string }) {
             ))}
           </ul>
         </Block>
+
+        {project.features?.length ? (
+          <Block title="Complex workflows we built">
+            <ul className="grid gap-6">
+              {project.features.map((feature) => (
+                <li key={feature.title}>
+                  <h3 className="font-heading font-bold text-fg">{feature.title}</h3>
+                  <p className="mt-2">{feature.description}</p>
+                </li>
+              ))}
+            </ul>
+          </Block>
+        ) : null}
 
         <Block title="Stack">
           {project.stack && project.stack.length > 0 ? (
@@ -112,26 +126,29 @@ export default function CaseStudyPage({ slug }: { slug: string }) {
           More screens
         </h2>
         <div className="grid items-start gap-6 md:grid-cols-12 md:gap-8">
-          {phone ? (
-            <div className="md:col-span-4" {...reveal()}>
-              <div className="mx-auto max-w-[280px] overflow-hidden rounded-xl border border-line bg-surface md:max-w-none">
-                <Image
-                  src={phone.src}
-                  alt={phone.alt}
-                  width={phone.width}
-                  height={phone.height}
-                  sizes="(min-width: 768px) 28vw, 280px"
-                  quality={75}
-                  className="h-auto w-full"
-                />
-              </div>
-            </div>
-          ) : null}
-          {detail.map((image) => (
-            <div key={image.src} className="md:col-span-8" {...reveal(80)}>
-              <BrowserFrame image={image} url={project.url} sizes="(min-width: 768px) 62vw, 100vw" />
-            </div>
-          ))}
+          {project.gallery.map((image) => {
+            const portrait = image.height > image.width;
+            return (
+              <figure key={image.src} className={portrait ? 'md:col-span-4' : hasPortrait ? 'md:col-span-8' : 'md:col-span-12'} {...reveal()}>
+                {portrait ? (
+                  <div className="mx-auto max-w-[280px] overflow-hidden rounded-xl border border-line bg-surface md:max-w-none">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      sizes="(min-width: 768px) 28vw, 280px"
+                      quality={75}
+                      className="h-auto w-full"
+                    />
+                  </div>
+                ) : (
+                  <BrowserFrame image={image} url={project.url} sizes={hasPortrait ? '(min-width: 768px) 62vw, 100vw' : '(min-width: 1280px) 1200px, 100vw'} />
+                )}
+                {image.caption ? <figcaption className="mt-3 text-small text-muted">{image.caption}</figcaption> : null}
+              </figure>
+            );
+          })}
         </div>
       </section>
 

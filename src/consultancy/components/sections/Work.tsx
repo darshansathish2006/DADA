@@ -9,15 +9,15 @@ import Tag from '@/components/ui/Tag';
 import Todo from '@/components/ui/Todo';
 import WorkedOnBy from '@/components/ui/WorkedOnBy';
 
-/** Show only the five documented consultancy projects. */
+/** Show the documented consultancy projects. */
 export default function Work() {
   return (
     <Section id="work" tone="light" labelledBy="work-heading">
       <SectionHeader
         id="work-heading"
         eyebrow="Consultancy projects"
-        title="Five projects. Five different needs."
-        intro="Explore the brief, design decisions, technology and work behind each website, across construction, interiors, fashion, healthcare and medicine."
+        title="Websites and software built for real needs."
+        intro="Explore the work behind our websites and business software, from manufacturing workflows and workforce monitoring to construction, interiors, fashion, healthcare and medicine."
       />
 
       <ul className="grid gap-x-8 gap-y-12 md:grid-cols-2">

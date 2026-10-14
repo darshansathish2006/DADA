@@ -1,4 +1,4 @@
-/** Consultancy services grounded in the five documented client projects. */
+/** Consultancy services grounded in documented client projects. */
 
 export interface Service {
   id: 'strategy' | 'design' | 'development';

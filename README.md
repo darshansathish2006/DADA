@@ -66,7 +66,9 @@ Barlow Condensed, DM Sans, and Space Mono are bundled locally in `public/assets/
 
 ## Consultancy and workshops
 
-Consultancy opens the bundled `/consultancy/` portfolio, updated from `Andryandurai/DADA-Portfolio` commit `6f18e5b`. The latest hero, Plan/Design/Build services, five-project approach, logo, team, and client work are adapted to the existing Vite build. Edit its content in `src/consultancy/data/`, components in `src/consultancy/components/`, and styling in `src/consultancy/styles.css`. Its images and public resumes live in `public/consultancy/`.
+Consultancy opens the bundled `/consultancy/` portfolio, updated from `Andryandurai/DADA-Portfolio` commit `6f18e5b`. The hero, Plan/Design/Build services, process examples, logo, team, and client work are adapted to the existing Vite build. Edit its content in `src/consultancy/data/`, components in `src/consultancy/components/`, and styling in `src/consultancy/styles.css`. Its images and public resumes live in `public/consultancy/`.
+
+The portfolio includes two separate Titans Windows case studies: Manufacturing CRM and Workforce Monitoring, both credited to Darshan C S. Their feature descriptions are grounded in the Titans source, and their screenshots show the actual application in light mode with synthetic records. Internal applications use an access description instead of a public live-site link. Galleries support both portrait website captures and full-width desktop software screens. Preserve these local additions when refreshing upstream consultancy content; screenshot provenance is recorded in `scripts/titans-project-sources.json`.
 
 Consultancy uses the locally maintained five-person team roster and project credits; credit links jump to the corresponding team member. Contact validates and emails enquiries through the shared endpoint, with a prefilled email link and copy action if delivery is unavailable. Both the contact section and footer list the supplied numbers under **Call / WhatsApp**, with working call and chat links. It does not call the source project's Next.js API.
 

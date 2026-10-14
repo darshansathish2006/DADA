@@ -1,0 +1,50 @@
+{
+  "sourceDirectory": "D:/Projects/Titans",
+  "sourceRevision": "85ac34703ee8c72e7e8d1c670e47a29ebdbcad1a",
+  "sourceState": "Read from the user's local checkout, which had existing uncommitted changes. No Titans source or working data was changed.",
+  "capturedOn": "2026-10-14",
+  "credit": "Darshan C S",
+  "capture": {
+    "method": "Playwright screenshots of the actual Django application running locally with isolated settings and a throwaway SQLite database.",
+    "data": "Synthetic users, customers, manufacturing orders, employees, attendance, advances and site visits. No production database, credentials or uploaded documents were used.",
+    "theme": "light (tw-theme localStorage setting; verified data-bs-theme=light)",
+    "viewport": { "width": 1600, "height": 1000 },
+    "format": "JPEG, quality 88",
+    "localArtifacts": "test-results/titans-preview/ (ignored; includes settings, sample-data setup and capture script)"
+  },
+  "projects": [
+    {
+      "slug": "titans-windows-crm",
+      "evidence": [
+        "README.md",
+        "apps/crm/models.py",
+        "apps/crm/views.py",
+        "apps/crm/stages.py",
+        "apps/crm/forms.py",
+        "apps/accounts/models.py"
+      ],
+      "screenshots": [
+        { "file": "pipeline.jpg", "screen": "/pipeline/" },
+        { "file": "fabrication.jpg", "screen": "/queue/fabrication/" },
+        { "file": "ledger.jpg", "screen": "/queue/accounts/<sample-order>/" }
+      ]
+    },
+    {
+      "slug": "titans-workforce-monitoring",
+      "evidence": [
+        "apps/monitoring/models.py",
+        "apps/monitoring/months.py",
+        "apps/monitoring/views.py",
+        "apps/monitoring/reports.py",
+        "apps/monitoring/urls.py",
+        "templates/monitoring/"
+      ],
+      "screenshots": [
+        { "file": "attendance.jpg", "screen": "/monitoring/attendance/" },
+        { "file": "employee.jpg", "screen": "/monitoring/employees/<sample-worker>/" },
+        { "file": "reports.jpg", "screen": "/monitoring/reports/" },
+        { "file": "visits.jpg", "screen": "/monitoring/site-visits/" }
+      ]
+    }
+  ]
+}

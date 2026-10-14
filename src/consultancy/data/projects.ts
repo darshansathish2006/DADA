@@ -2,7 +2,7 @@
  * Completed and ongoing projects — the single source for the homepage work grid,
  * the /work/[slug] case-study pages, the sitemap and structured data.
  *
- * Images live in `public/projects/<slug>/` (1600px-wide JPEG for desktop, 780px for mobile).
+ * Images live in `public/consultancy/projects/<slug>/` (1600px-wide JPEG for desktop, 780px for mobile).
  * Optional fields (`brief`, `stack`, `result`) are rendered as visible TODO markers until
  * real content is supplied — never invented.
  */
@@ -12,6 +12,7 @@ export interface ProjectImage {
   alt: string;
   width: number;
   height: number;
+  caption?: string;
 }
 
 export interface Project {
@@ -30,9 +31,14 @@ export interface Project {
   /** Team members who worked on it, spelled as in data/team.ts. A TODO marker is shown until supplied. */
   workedOnBy?: string[];
   url?: string;
+  /** Access description for internal applications without a public demo. */
+  access?: string;
+  /** The more involved workflows built for this project. */
+  features?: { title: string; description: string }[];
+  screenshotsNote?: string;
   /** Desktop screenshot used on the card and case-study hero. */
   cover: ProjectImage;
-  /** Extra screenshots for the case-study page (mobile first). */
+  /** Extra screenshots; each image's dimensions determine its gallery layout. */
   gallery: ProjectImage[];
   /** TODO: the client's brief. */
   brief?: string;
@@ -47,7 +53,7 @@ export interface Project {
  * not yet listed in `projects`; `ongoing` projects in progress (see `ongoingProjects`).
  */
 export const projectStats = {
-  completed: 6,
+  completed: 8,
   ongoing: 4,
 } as const;
 
@@ -80,6 +86,122 @@ const mobile = (slug: string, alt: string): ProjectImage => ({
 });
 
 export const projects: Project[] = [
+  {
+    slug: 'titans-windows-crm',
+    title: 'Titans Windows — Manufacturing CRM',
+    client: 'Titans Windows',
+    sector: 'uPVC windows & doors manufacturing · Business software',
+    summary:
+      'Custom software for a uPVC windows and doors manufacturer, connecting sales, measurements, quotations, production, accounts, installation and handover in one order journey.',
+    overview: [
+      'Built a CRM around the way Titans Windows manufactures and delivers each order. A single customer record follows nine stages, from the first enquiry and rough measurement through quotation, order confirmation, final measurement, production, fabrication, installation and warranty handover.',
+      'Each department gets the queues and actions relevant to its role. Sales, measurement, quotation, accounts, production and field teams work from the same order history, with documents, approvals and financial records kept together.',
+    ],
+    did: ['Manufacturing CRM', 'Production workflows', 'Accounts & documents'],
+    workedOnBy: [person.darshan],
+    access: 'Client application · Sign-in required',
+    brief:
+      'Build business software for a PVC windows manufacturing company to coordinate customer enquiries, department handoffs, factory progress, payments and final delivery without losing the history of an order.',
+    features: [
+      {
+        title: 'Nine-stage workflow with approval gates',
+        description: 'Connected rough measurements, quotation revisions, signed Customer Approval Forms (CAFs), final measurements and production-sheet validation. Required documents and approvals control when an order can move forward.',
+      },
+      {
+        title: 'Fabrication planning and eight-step checklists',
+        description: 'Built a factory board for future production, work in progress, dispatch readiness and dispatched orders. Cutting, reinforcement, welding, beading, CNC, assembly and both glass operations are tracked against each site.',
+      },
+      {
+        title: 'Customer accounts and installer payments',
+        description: 'Calculated order totals, additional charges, advances, receipts and outstanding balances. A separate installer ledger handles square-foot rates, extra charges, payments and the balance owed to outsourced installation teams.',
+      },
+      {
+        title: 'Document generation and revision history',
+        description: 'Generated customer approval and warranty PDFs from company formats, retained earlier quotation and elevation revisions, and linked signed documents and payment proofs to the relevant order.',
+      },
+      {
+        title: 'Department access and accountable handoffs',
+        description: 'Implemented role-based access and configurable stage permissions, staff allocation, scheduled measurement visits, follow-up history, sales targets and reminders for work that needs attention.',
+      },
+      {
+        title: 'Installation, handover and after-sales service',
+        description: 'Connected dispatch details to installation completion, signed handover documents and warranty records, with service-request handling after delivery.',
+      },
+    ],
+    stack: ['Python', 'Django 5', 'Bootstrap 5', 'JavaScript', 'SQLite / PostgreSQL', 'ReportLab', 'pypdf'],
+    result:
+      'Built a connected manufacturing CRM with department-specific workflows, production approval gates, fabrication tracking, financial ledgers and document handover.',
+    screenshotsNote: 'Actual application screens in light mode, populated with sample records for this portfolio.',
+    cover: desktop('titans-windows-crm', 'pipeline', 'Titans Windows CRM sales pipeline in light mode, showing sample lead stages, order values and follow-ups'),
+    gallery: [
+      {
+        ...desktop('titans-windows-crm', 'fabrication', 'Titans Windows fabrication board in light mode with sample orders awaiting production, in progress and ready for dispatch'),
+        caption: 'The fabrication board connects each site’s production status, checklist progress, quantities, order value and committed delivery date.',
+      },
+      {
+        ...desktop('titans-windows-crm', 'ledger', 'Titans Windows customer ledger in light mode showing a sample order, advance and outstanding balance'),
+        caption: 'The customer ledger keeps the order value, advance, payments, extra charges and balance together.',
+      },
+    ],
+  },
+  {
+    slug: 'titans-workforce-monitoring',
+    title: 'Titans Windows — Workforce Monitoring',
+    client: 'Titans Windows',
+    sector: 'Manufacturing workforce · Monitoring software',
+    summary:
+      'A separate monitoring module for the same manufacturer, covering factory attendance, overtime, salary advances, monthly reports and sales executives’ site visits.',
+    overview: [
+      'Built the monitoring side of Titans Windows as a distinct workspace within the same software. Factory staff records and attendance are managed separately from customer orders, while sales executives have a mobile workflow for recording their working day and site visits.',
+      'The system brings together daily attendance and advances, monthly calculations and downloadable reports. Access is tailored to administrators, authorised attendance staff and sales executives.',
+    ],
+    did: ['Attendance & overtime', 'Salary advances & reports', 'Site-visit tracking'],
+    workedOnBy: [person.darshan],
+    access: 'Client application · Sign-in required',
+    brief:
+      'Give the manufacturer a dedicated way to record factory attendance, keep advances and overtime consistent across months, prepare employee reports and review field visits separately from its CRM.',
+    features: [
+      {
+        title: 'Daily attendance with overtime and advances',
+        description: 'Built present, absent, half-day and holiday marking, overtime-hour entry and advances beside each day’s attendance. Bulk actions speed up marking, while employee calendars retain the daily history.',
+      },
+      {
+        title: 'Advance carry-forward and salary calculations',
+        description: 'Carried outstanding advances across months using the opening balance, daily advances and previous deductions. Calculated overtime from monthly salary, calendar days and an eight-hour day, then applied the month’s deduction to the salary payable.',
+      },
+      {
+        title: 'Month closing and controlled corrections',
+        description: 'Closed completed months automatically, with an administrator workflow to reopen and correct them. Validated deductions against the advance owed and available pay, while preserving former employees’ attendance history.',
+      },
+      {
+        title: 'Employee PDFs and consolidated Excel reports',
+        description: 'Generated individual reports with attendance calendars, overtime, advances and salary calculations, plus a monthly Excel workbook for the whole workforce. Reports are generated on demand from the saved records.',
+      },
+      {
+        title: 'Location-stamped working days and site visits',
+        description: 'Used browser geolocation to record where sales executives start work, log site stops and complete their day. Visit notes include timestamps, coordinates, location accuracy and map links, with an administrator view of the activity.',
+      },
+    ],
+    stack: ['Python', 'Django 5', 'Bootstrap 5', 'JavaScript', 'Browser Geolocation API', 'openpyxl', 'ReportLab'],
+    result:
+      'Built a dedicated monitoring workspace for daily attendance, overtime and advance calculations, monthly employee reports and location-stamped field visits.',
+    screenshotsNote: 'Actual monitoring screens captured in light mode. Employee names, attendance, pay figures and visits are sample records.',
+    cover: desktop('titans-workforce-monitoring', 'attendance', 'Titans Windows monitoring attendance screen in light mode with sample employees, attendance states and overtime controls'),
+    gallery: [
+      {
+        ...desktop('titans-workforce-monitoring', 'employee', 'Light-mode employee monitoring screen with a sample attendance calendar, overtime totals and advance balance'),
+        caption: 'An employee’s monthly view connects attendance, overtime, daily advances and the running advance balance.',
+      },
+      {
+        ...desktop('titans-workforce-monitoring', 'reports', 'Light-mode monitoring reports screen with monthly Excel and individual employee PDF downloads'),
+        caption: 'Monthly reporting supports a workforce Excel sheet, employee PDFs and controlled reopening for corrections.',
+      },
+      {
+        ...desktop('titans-workforce-monitoring', 'visits', 'Light-mode site-visit monitoring screen showing sample sales executives and timestamped visit notes'),
+        caption: 'The site-visit view brings together each executive’s working day, recorded locations and visit notes.',
+      },
+    ],
+  },
   {
     slug: 'ss-builders',
     title: 'SS Builders',

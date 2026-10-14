@@ -33,13 +33,13 @@ const steps = [
   },
 ] as const;
 
-/** Opening-section process with examples from all five consultancy projects. */
+/** Opening-section process with examples from our consultancy work. */
 export default function Process() {
   return (
     <div id="approach" className="mt-14 scroll-mt-24 border-t border-line pt-8 md:mt-16">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-h3">From the first conversation to launch</h2>
-        <p className="text-small text-muted">Our approach, through five real projects.</p>
+        <p className="text-small text-muted">Our approach, illustrated through our work.</p>
       </div>
       <ol className="mt-8 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-y-0">
         {steps.map((step, index) => (
