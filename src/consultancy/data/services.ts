@@ -36,11 +36,11 @@ export const services: Service[] = [
   {
     id: 'development',
     title: 'Build',
-    lead: 'Connect the useful parts.',
+    lead: 'Connect your business workflows.',
     description:
-      'Product enquiries, appointment flows, forms connected to Google Sheets. We build the features that help the website fit into your day-to-day work.',
-    deliverables: ['Web development', 'Enquiry forms', 'Booking flows', 'Launch & handover'],
-    projectSlug: 'angel-collections',
-    projectNote: 'From browsing a collection to a WhatsApp enquiry.',
+      'Sales, quotations, production approvals and accounts. We build software that keeps every department working from the same order, from the first enquiry to installation and handover.',
+    deliverables: ['Custom CRM', 'Production workflows', 'Accounts & payments', 'Document automation'],
+    projectSlug: 'titans-windows-crm',
+    projectNote: 'From enquiry and quotation to production, installation and handover.',
   },
 ];
