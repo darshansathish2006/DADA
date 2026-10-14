@@ -7,7 +7,7 @@
   "capture": {
     "method": "Playwright screenshots of the actual Django application running locally with isolated settings and a throwaway SQLite database.",
     "data": "Synthetic users, customers, manufacturing orders, employees, attendance, advances and site visits. No production database, credentials or uploaded documents were used.",
-    "theme": "light (tw-theme localStorage setting; verified data-bs-theme=light)",
+    "theme": "Per project, using the application's tw-theme setting and verified data-bs-theme attribute.",
     "viewport": { "width": 1600, "height": 1000 },
     "format": "JPEG, quality 88",
     "localArtifacts": "test-results/titans-preview/ (ignored; includes settings, sample-data setup and capture script)"
@@ -15,6 +15,7 @@
   "projects": [
     {
       "slug": "titans-windows-crm",
+      "theme": "dark",
       "evidence": [
         "README.md",
         "apps/crm/models.py",
@@ -31,6 +32,7 @@
     },
     {
       "slug": "titans-workforce-monitoring",
+      "theme": "light",
       "evidence": [
         "apps/monitoring/models.py",
         "apps/monitoring/months.py",

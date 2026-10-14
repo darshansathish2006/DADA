@@ -131,15 +131,15 @@ export const projects: Project[] = [
     stack: ['Python', 'Django 5', 'Bootstrap 5', 'JavaScript', 'SQLite / PostgreSQL', 'ReportLab', 'pypdf'],
     result:
       'Built a connected manufacturing CRM with department-specific workflows, production approval gates, fabrication tracking, financial ledgers and document handover.',
-    screenshotsNote: 'Actual application screens in light mode, populated with sample records for this portfolio.',
-    cover: desktop('titans-windows-crm', 'pipeline', 'Titans Windows CRM sales pipeline in light mode, showing sample lead stages, order values and follow-ups'),
+    screenshotsNote: 'Actual application screens in dark mode, populated with sample records for this portfolio.',
+    cover: desktop('titans-windows-crm', 'pipeline', 'Titans Windows CRM sales pipeline in dark mode, showing sample lead stages, order values and follow-ups'),
     gallery: [
       {
-        ...desktop('titans-windows-crm', 'fabrication', 'Titans Windows fabrication board in light mode with sample orders awaiting production, in progress and ready for dispatch'),
+        ...desktop('titans-windows-crm', 'fabrication', 'Titans Windows fabrication board in dark mode with sample orders awaiting production, in progress and ready for dispatch'),
         caption: 'The fabrication board connects each site’s production status, checklist progress, quantities, order value and committed delivery date.',
       },
       {
-        ...desktop('titans-windows-crm', 'ledger', 'Titans Windows customer ledger in light mode showing a sample order, advance and outstanding balance'),
+        ...desktop('titans-windows-crm', 'ledger', 'Titans Windows customer ledger in dark mode showing a sample order, advance and outstanding balance'),
         caption: 'The customer ledger keeps the order value, advance, payments, extra charges and balance together.',
       },
     ],
